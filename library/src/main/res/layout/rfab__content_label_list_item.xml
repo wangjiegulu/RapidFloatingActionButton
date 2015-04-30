@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/rfab__content_label_list_root_view"
+              android:orientation="horizontal"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_gravity="right|bottom"
+              android:gravity="center_vertical|right"
+              android:paddingLeft="8dp"
+              android:paddingRight="8dp"
+              android:paddingTop="10dp"
+              android:paddingBottom="10dp"
+        >
+
+    <TextView
+            android:id="@+id/rfab__content_label_list_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:minWidth="50dp"
+            android:background="@drawable/rfab__shape_corners_background_label_shadow_selector"
+            android:textColor="@color/rfab__color_text_label_item"
+            />
+
+    <ImageView
+            android:id="@+id/rfab__content_label_list_icon_iv"
+            android:layout_width="35dp" android:layout_height="35dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ico_add"
+            />
+
+</LinearLayout>

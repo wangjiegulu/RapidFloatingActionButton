@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="RapidFloatingActionButton">
+        <attr name="rfab_size" format="enum">
+            <enum name="normal" value="0"/><!-- 56dp -->
+            <enum name="mini" value="1"/><!-- 40dp -->
+        </attr>
+        <attr name="rfab_color_normal" format="color"/>
+        <attr name="rfab_color_pressed" format="color"/>
+    </declare-styleable>
+
+</resources>

@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#eeeeee"
+                tools:context=".MainActivity">
+
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#aabbcc"
+            />
+
+    <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
+            android:id="@+id/activity_main_rfal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+        <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+                xmlns:rfab="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/activity_main_rfab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="30dp"
+                android:padding="8dp"
+                rfab:rfab_size="normal"
+                rfab:rfab_color_normal="@android:color/white"
+                rfab:rfab_color_pressed="#dddddd"
+                />
+
+
+    </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>
+
+
+</RelativeLayout>
