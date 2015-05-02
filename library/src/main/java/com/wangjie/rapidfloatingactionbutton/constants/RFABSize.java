@@ -16,13 +16,13 @@ public enum RFABSize {
         this.dpSize = dpSize;
     }
 
-    public static int getDpSizeByCode(int code) {
+    public static RFABSize getRFABSizeByCode(int code) {
         for (RFABSize rfabSize : RFABSize.values()) {
             if (code == rfabSize.code) {
-                return rfabSize.dpSize;
+                return rfabSize;
             }
         }
-        return NORMAL.dpSize;
+        return NORMAL;
     }
 
     public int getCode() {

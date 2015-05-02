@@ -24,12 +24,16 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
                 android:padding="8dp"
                 rfab:rfab_size="normal"
-                rfab:rfab_color_normal="@android:color/white"
-                rfab:rfab_color_pressed="#dddddd"
+                rfab:rfab_color_normal="#cc3333"
+                rfab:rfab_color_pressed="#990000"
+                rfab:rfab_shadow_radius="7dp"
+                rfab:rfab_shadow_color="#aaaaaa"
+                rfab:rfab_shadow_dx="0dp"
+                rfab:rfab_shadow_dy="5dp"
                 />
 
 

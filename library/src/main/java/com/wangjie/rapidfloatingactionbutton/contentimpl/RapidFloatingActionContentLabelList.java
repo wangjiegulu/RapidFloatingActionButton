@@ -3,23 +3,25 @@ package com.wangjie.rapidfloatingactionbutton.contentimpl;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import com.nineoldandroids.animation.AnimatorSet;
-import com.nineoldandroids.animation.ValueAnimator;
 import com.wangjie.androidbucket.adapter.ABaseAdapter;
 import com.wangjie.androidbucket.adapter.listener.OnConvertViewClickListener;
 import com.wangjie.androidbucket.utils.ABTextUtil;
 import com.wangjie.androidbucket.utils.ABViewUtil;
 import com.wangjie.androidbucket.utils.imageprocess.ABImageProcess;
-import com.wangjie.androidbucket.utils.imageprocess.ABShape;
 import com.wangjie.rapidfloatingactionbutton.R;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABConstants;
+import com.wangjie.rapidfloatingactionbutton.constants.RFABSize;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
+import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonDrawable;
+import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,20 +87,19 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
         contentLv.setAdapter(adapter);
     }
 
-
     private boolean shouldExecuteExpandAnimator;
     private boolean shouldExecuteCollapseAnimator;
 
     class LabelAdapter extends ABaseAdapter {
 
-        private int rfacItemSizePx;
+        //        private int rfacItemSizePx;
         private int rfacItemDrawableSizePx;
 
         public List<RFACLabelItem> items = new ArrayList<>();
 
         public LabelAdapter(AbsListView listView) {
             super(listView);
-            rfacItemSizePx = ABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAC_ITEM_SIZE_DP);
+//            rfacItemSizePx = ABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAC_ITEM_SIZE_DP);
             rfacItemDrawableSizePx = ABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAC_ITEM_DRAWABLE_SIZE_DP);
         }
 
@@ -143,16 +144,40 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
                 ImageView iconIv = ABViewUtil.obtainView(convertView, R.id.rfab__content_label_list_icon_iv);
                 iconIv.setOnClickListener(onConvertViewClickListener);
 
+                CircleButtonProperties circleButtonProperties = new CircleButtonProperties()
+                        .setStandardSize(RFABSize.MINI)
+                        .setShadowColor(0xffaaaaaa)
+                        .setShadowRadius(ABTextUtil.dip2px(getContext(), 4))
+                        .setShadowDy(ABTextUtil.dip2px(getContext(), 5));
+
+                int realItemSize = circleButtonProperties.getRealSizePx(getContext());
+
                 LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) iconIv.getLayoutParams();
                 if (null == lp) {
-                    lp = new LinearLayout.LayoutParams(rfacItemSizePx, rfacItemSizePx);
+                    lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 }
-                lp.width = rfacItemSizePx;
-                lp.height = rfacItemSizePx;
+                int rfabRealSize = onRapidFloatingActionListener.obtainRFAButton().getRfabProperties().getRealSizePx(getContext());
+                lp.rightMargin = (rfabRealSize - realItemSize) / 2;
+                lp.width = realItemSize;
+                lp.height = realItemSize;
                 iconIv.setLayoutParams(lp);
-                int padding = ABTextUtil.dip2px(getContext(), 8);
+//                ABViewUtil.setBackgroundDrawable(iconIv, ABShape.selectorClickColorCornerSimple(Color.WHITE, getContext().getResources().getColor(R.color.rfab__color_background_pressed), rfacItemSizePx / 2));
+
+                CircleButtonDrawable rfacDrawable = new CircleButtonDrawable(getContext(),
+                        circleButtonProperties
+                        ,
+                        Color.WHITE
+                );
+
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+                    iconIv.setLayerType(LAYER_TYPE_SOFTWARE, rfacDrawable.getPaint());
+                }
+
+                ABViewUtil.setBackgroundDrawable(iconIv, rfacDrawable);
+
+                int padding = ABTextUtil.dip2px(getContext(), 8) + circleButtonProperties.getShadowOffsetHalf();
                 iconIv.setPadding(padding, padding, padding, padding);
-                ABViewUtil.setBackgroundDrawable(iconIv, ABShape.selectorClickColorCornerSimple(Color.WHITE, getContext().getResources().getColor(R.color.rfab__color_background_pressed), rfacItemSizePx / 2));
+
 
             }
             convertView.setTag(R.id.ab__id_adapter_item_position, position);
@@ -178,70 +203,17 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
                 iconIv.setVisibility(GONE);
             }
 
-            if (shouldExecuteExpandAnimator) {
-                int itemSize = rfacItemSizePx;
-                ValueAnimator expandSizeAnimator = ValueAnimator.ofInt(itemSize / 2, itemSize);
-                expandSizeAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        int value = (int) animation.getAnimatedValue();
-                        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) iconIv.getLayoutParams();
-                        if (null == lp) {
-                            lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        }
-                        lp.width = value;
-                        lp.height = value;
-                        iconIv.setLayoutParams(lp);
-                    }
-                });
-//                expandSizeAnimator.setDuration(200);
-//                expandSizeAnimator.setInterpolator(new AccelerateInterpolator());
-//                expandSizeAnimator.start();
-                animatorSet.playTogether(expandSizeAnimator);
-
-            } else if (shouldExecuteCollapseAnimator) {
-                int itemSize = rfacItemSizePx;
-                ValueAnimator collapseSizeAnimator = ValueAnimator.ofInt(itemSize, itemSize / 2);
-
-                collapseSizeAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-                    @Override
-                    public void onAnimationUpdate(ValueAnimator animation) {
-                        int value = (int) animation.getAnimatedValue();
-                        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) iconIv.getLayoutParams();
-                        if (null == lp) {
-                            lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                        }
-                        lp.width = value;
-                        lp.height = value;
-                        iconIv.setLayoutParams(lp);
-                    }
-                });
-//                collapseSizeAnimator.setDuration(200);
-//                collapseSizeAnimator.setInterpolator(new AccelerateInterpolator());
-//                collapseSizeAnimator.start();
-                animatorSet.playTogether(collapseSizeAnimator);
-            }
 
             return convertView;
         }
     }
 
-    private AnimatorSet animatorSet;
-
     @Override
     public void onExpandAnimator(AnimatorSet animatorSet) {
-        this.animatorSet = animatorSet;
-        shouldExecuteExpandAnimator = true;
-        shouldExecuteCollapseAnimator = false;
-        adapter.notifyDataSetChanged();
     }
 
     @Override
     public void onCollapseAnimator(AnimatorSet animatorSet) {
-        this.animatorSet = animatorSet;
-        shouldExecuteCollapseAnimator = true;
-        shouldExecuteExpandAnimator = false;
-        adapter.notifyDataSetChanged();
     }
 
 

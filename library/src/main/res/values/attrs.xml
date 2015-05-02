@@ -4,11 +4,17 @@
 
     <declare-styleable name="RapidFloatingActionButton">
         <attr name="rfab_size" format="enum">
-            <enum name="normal" value="0"/><!-- 56dp -->
-            <enum name="mini" value="1"/><!-- 40dp -->
+            <!-- 56dp -->
+            <enum name="normal" value="0"/>
+            <!-- 40dp -->
+            <enum name="mini" value="1"/>
         </attr>
         <attr name="rfab_color_normal" format="color"/>
         <attr name="rfab_color_pressed" format="color"/>
+        <attr name="rfab_shadow_radius" format="dimension"/>
+        <attr name="rfab_shadow_color" format="color"/>
+        <attr name="rfab_shadow_dx" format="dimension"/>
+        <attr name="rfab_shadow_dy" format="dimension"/>
     </declare-styleable>
 
 </resources>
