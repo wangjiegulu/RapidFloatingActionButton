@@ -61,16 +61,13 @@ public final class RapidFloatingActionButtonHelper implements OnRapidFloatingAct
     @Override
     public void onExpandAnimator(AnimatorSet animatorSet) {
         rfaContent.onExpandAnimator(animatorSet);
+        rfaBtn.onExpandAnimator(animatorSet);
     }
 
     @Override
     public void onCollapseAnimator(AnimatorSet animatorSet) {
         rfaContent.onCollapseAnimator(animatorSet);
-    }
-
-    @Override
-    public int getRFABSize() {
-        return 0;
+        rfaBtn.onCollapseAnimator(animatorSet);
     }
 
 

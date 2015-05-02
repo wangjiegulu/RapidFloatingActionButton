@@ -13,6 +13,7 @@
             <!-- 40dp -->
             <enum name="mini" value="1"/>
         </attr>
+        <attr name="rfab_drawable" format="reference"/>
         <attr name="rfab_color_normal" format="color"/>
         <attr name="rfab_color_pressed" format="color"/>
         <attr name="rfab_shadow_radius" format="dimension"/>

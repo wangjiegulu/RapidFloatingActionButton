@@ -138,7 +138,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(contentAnimator, fillFrameAnimator);
         animatorSet.setDuration(ANIMATION_DURATION);
-        animatorSet.setInterpolator(new AccelerateInterpolator());
+        animatorSet.setInterpolator(mAccelerateInterpolator);
         onRapidFloatingActionListener.onExpandAnimator(animatorSet);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
@@ -173,8 +173,8 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(contentAnimator, fillFrameAnimator);
         animatorSet.setDuration(ANIMATION_DURATION);
-        animatorSet.setInterpolator(new AccelerateInterpolator());
-        onRapidFloatingActionListener.onExpandAnimator(animatorSet);
+        animatorSet.setInterpolator(mAccelerateInterpolator);
+        onRapidFloatingActionListener.onCollapseAnimator(animatorSet);
 
         animatorSet.addListener(new AnimatorListenerAdapter() {
             @Override
@@ -195,8 +195,9 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
 
     }
 
-    ObjectAnimator contentAnimator = new ObjectAnimator();
-    ObjectAnimator fillFrameAnimator = new ObjectAnimator();
+    private ObjectAnimator contentAnimator = new ObjectAnimator();
+    private ObjectAnimator fillFrameAnimator = new ObjectAnimator();
+    private AccelerateInterpolator mAccelerateInterpolator = new AccelerateInterpolator();
 
 
 }

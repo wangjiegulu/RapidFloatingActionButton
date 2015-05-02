@@ -4,12 +4,16 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.wangjie.androidbucket.utils.ABTextUtil;
 import com.wangjie.androidbucket.utils.ABViewUtil;
 import com.wangjie.androidbucket.utils.imageprocess.ABImageProcess;
@@ -26,9 +30,16 @@ import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonProperties;
  */
 public class RapidFloatingActionButton extends FrameLayout implements View.OnClickListener {
 
-
-    private int drawableResId = R.drawable.ico_add;
-    private ImageView centerIv;
+    private Drawable buttonDrawable;
+    /**
+     * 默认的drawable
+     */
+    private static final int DEFAULT_BUTTON_DRAWABLE_RES_ID = R.drawable.ico_add;
+    /**
+     * 中间图片大小24dp
+     */
+    private int buttonDrawableSize;
+    protected ImageView centerIv;
 
     private CircleButtonProperties rfabProperties = new CircleButtonProperties();
 
@@ -40,6 +51,10 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
      * 触摸状态颜色
      */
     private int pressedColor;
+    /**
+     * 按钮图标动画
+     */
+    private ObjectAnimator drawableAnimator = new ObjectAnimator();
 
     public RapidFloatingActionButton(Context context) {
         super(context);
@@ -69,6 +84,7 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
     private void parserAttrs(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.RapidFloatingActionButton, defStyleAttr, defStyleRes);
+        buttonDrawable = a.getDrawable(R.styleable.RapidFloatingActionButton_rfab_drawable);
         normalColor = a.getColor(R.styleable.RapidFloatingActionButton_rfab_color_normal, getContext().getResources().getColor(R.color.rfab__color_background_normal));
         pressedColor = a.getColor(R.styleable.RapidFloatingActionButton_rfab_color_pressed, getContext().getResources().getColor(R.color.rfab__color_background_pressed));
         int sizeCode = a.getInt(R.styleable.RapidFloatingActionButton_rfab_size, RFABSize.NORMAL.getCode());
@@ -84,8 +100,12 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
 
     private void initAfterConstructor() {
         // 中间图片大小24dp
-        int drawableSize = ABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAB_DRAWABLE_SIZE_DP);
+        buttonDrawableSize = ABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAB_DRAWABLE_SIZE_DP);
+        if (null == buttonDrawable) {
+            buttonDrawable = ABImageProcess.getResourceDrawableBounded(getContext(), DEFAULT_BUTTON_DRAWABLE_RES_ID, buttonDrawableSize);
+        }
 
+        // 设置rfab的背景图片
         CircleButtonDrawable normalDrawable = new CircleButtonDrawable(getContext(), rfabProperties, normalColor);
         ABViewUtil.setBackgroundDrawable(
                 this,
@@ -104,12 +124,20 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
             this.removeAllViews();
             centerIv = new ImageView(getContext());
             this.addView(centerIv);
-            LayoutParams lp = new LayoutParams(drawableSize, drawableSize);
+            LayoutParams lp = new LayoutParams(buttonDrawableSize, buttonDrawableSize);
             lp.gravity = Gravity.CENTER;
             centerIv.setLayoutParams(lp);
-            centerIv.setImageDrawable(ABImageProcess.getResourceDrawableBounded(getContext(), drawableResId, drawableSize));
+            resetCenterImageView();
         }
 
+    }
+
+    /**
+     * 重置图片
+     */
+    private void resetCenterImageView() {
+        buttonDrawable.setBounds(0, 0, buttonDrawableSize, buttonDrawableSize);
+        centerIv.setImageDrawable(buttonDrawable);
     }
 
     private OnRapidFloatingActionListener onRapidFloatingActionListener;
@@ -136,4 +164,37 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
     public CircleButtonProperties getRfabProperties() {
         return rfabProperties;
     }
+
+    /**
+     * 设置按钮drawable
+     *
+     * @param buttonDrawable
+     */
+    public void setButtonDrawable(Drawable buttonDrawable) {
+        this.buttonDrawable = buttonDrawable;
+        resetCenterImageView();
+    }
+
+
+    public void onExpandAnimator(AnimatorSet animatorSet) {
+        drawableAnimator.cancel();
+        drawableAnimator.setTarget(centerIv);
+        drawableAnimator.setFloatValues(0, 45f);
+        drawableAnimator.setPropertyName("rotation");
+        drawableAnimator.setInterpolator(mOvershootInterpolator);
+        animatorSet.playTogether(drawableAnimator);
+    }
+
+    public void onCollapseAnimator(AnimatorSet animatorSet) {
+        drawableAnimator.cancel();
+        drawableAnimator.setTarget(centerIv);
+        drawableAnimator.setFloatValues(45, 0f);
+        drawableAnimator.setPropertyName("rotation");
+        drawableAnimator.setInterpolator(mOvershootInterpolator);
+        animatorSet.playTogether(drawableAnimator);
+    }
+
+    private OvershootInterpolator mOvershootInterpolator = new OvershootInterpolator();
+
+
 }

@@ -23,5 +23,4 @@ public interface OnRapidFloatingActionListener {
 
     void onCollapseAnimator(AnimatorSet animatorSet);
 
-    int getRFABSize();
 }

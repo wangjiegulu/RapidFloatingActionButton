@@ -48,7 +48,7 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
                         .setWrapper(1)
         );
         items.add(new RFACLabelItem<Integer>()
-                        .setLabel("")
+                        .setLabel("WangJie")
                         .setResId(R.drawable.ic_launcher)
                         .setIconNormalColor(0xff056f00)
                         .setIconPressedColor(0xff0d5302)
