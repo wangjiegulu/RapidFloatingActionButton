@@ -64,7 +64,7 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
         rfaContent
                 .setItems(items)
                 .setIconShadowRadius(ABTextUtil.dip2px(context, 5))
-                .setIconShadowColor(0xffcccccc)
+                .setIconShadowColor(0xff999999)
                 .setIconShadowDy(ABTextUtil.dip2px(context, 5))
         ;
 

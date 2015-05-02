@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <declare-styleable name="RapidFloatingActionLayout">
+        <attr name="rfal_frame_color" format="color"/>
+        <attr name="rfal_frame_alpha" format="float"/>
+    </declare-styleable>
 
     <declare-styleable name="RapidFloatingActionButton">
         <attr name="rfab_size" format="enum">
