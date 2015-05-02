@@ -8,7 +8,7 @@ import com.nineoldandroids.animation.AnimatorSet;
  * Email: tiantian.china.2@gmail.com
  * Date: 4/29/15.
  */
-public class RapidFloatingActionButtonHelper implements OnRapidFloatingActionListener {
+public final class RapidFloatingActionButtonHelper implements OnRapidFloatingActionListener {
     private Context context;
     private RapidFloatingActionLayout rfaLayout;
     private RapidFloatingActionButton rfaBtn;
@@ -28,6 +28,8 @@ public class RapidFloatingActionButtonHelper implements OnRapidFloatingActionLis
         rfaBtn.setOnRapidFloatingActionListener(this);
         rfaContent.setOnRapidFloatingActionListener(this);
         rfaLayout.setContentView(rfaContent);
+        // 通知content RFABHelper构建完毕
+        rfaContent.initAfterRFABHelperBuild();
         return this;
     }
 

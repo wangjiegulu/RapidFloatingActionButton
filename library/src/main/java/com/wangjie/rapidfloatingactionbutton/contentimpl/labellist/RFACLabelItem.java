@@ -12,8 +12,14 @@ import java.io.Serializable;
 public class RFACLabelItem<T> implements Serializable {
     private int resId = -1;
     private Drawable drawable;
+    private Integer iconNormalColor;
+    private Integer iconPressedColor;
     private String label;
     private T wrapper;
+    /**
+     * 是否加粗字体
+     */
+    private boolean labelTextBold = true;
 
     public RFACLabelItem() {
     }
@@ -59,13 +65,30 @@ public class RFACLabelItem<T> implements Serializable {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "RFACLabelItem{" +
-                "resId=" + resId +
-                ", drawable=" + drawable +
-                ", label='" + label + '\'' +
-                ", wrapper=" + wrapper +
-                '}';
+    public Integer getIconNormalColor() {
+        return iconNormalColor;
+    }
+
+    public RFACLabelItem<T> setIconNormalColor(Integer iconNormalColor) {
+        this.iconNormalColor = iconNormalColor;
+        return this;
+    }
+
+    public Integer getIconPressedColor() {
+        return iconPressedColor;
+    }
+
+    public RFACLabelItem<T> setIconPressedColor(Integer iconPressedColor) {
+        this.iconPressedColor = iconPressedColor;
+        return this;
+    }
+
+    public boolean isLabelTextBold() {
+        return labelTextBold;
+    }
+
+    public RFACLabelItem<T> setLabelTextBold(boolean labelTextBold) {
+        this.labelTextBold = labelTextBold;
+        return this;
     }
 }

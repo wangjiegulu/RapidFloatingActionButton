@@ -30,7 +30,7 @@ public class RapidFloatingActionContentTextView extends RapidFloatingActionConte
     }
 
     @Override
-    protected void init() {
+    protected void initAfterConstructor() {
         setRootView(R.layout.rfab__content_text);
     }
 

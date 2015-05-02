@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
+import com.wangjie.androidbucket.utils.ABTextUtil;
 import com.wangjie.androidinject.annotation.annotations.base.AILayout;
 import com.wangjie.androidinject.annotation.annotations.base.AIView;
 import com.wangjie.androidinject.annotation.present.AIActionBarActivity;
@@ -32,11 +33,40 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
         RapidFloatingActionContentLabelList rfaContent = new RapidFloatingActionContentLabelList(context);
         rfaContent.setOnRapidFloatingActionContentListener(this);
         List<RFACLabelItem> items = new ArrayList<>();
-        items.add(new RFACLabelItem<Integer>().setLabel("item1").setResId(R.drawable.ic_launcher).setWrapper(0));
-        items.add(new RFACLabelItem<Integer>().setLabel("item2").setResId(R.drawable.ic_launcher).setWrapper(1));
-        items.add(new RFACLabelItem<Integer>().setLabel("item3longlabel").setResId(R.drawable.ic_launcher).setWrapper(2));
-        items.add(new RFACLabelItem<Integer>().setLabel("item4").setResId(R.drawable.ic_launcher));
-        rfaContent.setItems(items);
+        items.add(new RFACLabelItem<Integer>()
+                        .setLabel("Invite to Inbox")
+                        .setResId(R.drawable.ic_launcher)
+                        .setIconNormalColor(0xffd84315)
+                        .setIconPressedColor(0xffbf360c)
+                        .setWrapper(0)
+        );
+        items.add(new RFACLabelItem<Integer>()
+                        .setLabel("tiantian.china.2@gmail.com")
+                        .setResId(R.drawable.ic_launcher)
+                        .setIconNormalColor(0xff4e342e)
+                        .setIconPressedColor(0xff3e2723)
+                        .setWrapper(1)
+        );
+        items.add(new RFACLabelItem<Integer>()
+                        .setLabel("")
+                        .setResId(R.drawable.ic_launcher)
+                        .setIconNormalColor(0xff056f00)
+                        .setIconPressedColor(0xff0d5302)
+                        .setWrapper(2)
+        );
+        items.add(new RFACLabelItem<Integer>()
+                        .setLabel("Compose")
+                        .setResId(R.drawable.ic_launcher)
+                        .setIconNormalColor(0xff283593)
+                        .setIconPressedColor(0xff1a237e)
+                        .setWrapper(3)
+        );
+        rfaContent
+                .setItems(items)
+                .setIconShadowRadius(ABTextUtil.dip2px(context, 5))
+                .setIconShadowColor(0xffcccccc)
+                .setIconShadowDy(ABTextUtil.dip2px(context, 5))
+        ;
 
         rfabHelper = new RapidFloatingActionButtonHelper(
                 context,
@@ -44,7 +74,6 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
                 rfaBtn,
                 rfaContent
         ).build();
-
 
     }
 

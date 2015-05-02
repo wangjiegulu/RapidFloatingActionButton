@@ -43,33 +43,33 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
 
     public RapidFloatingActionButton(Context context) {
         super(context);
-        init();
+        initAfterConstructor();
     }
 
     public RapidFloatingActionButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         parserAttrs(context, attrs, 0, 0);
-        init();
+        initAfterConstructor();
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public RapidFloatingActionButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         parserAttrs(context, attrs, defStyleAttr, 0);
-        init();
+        initAfterConstructor();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RapidFloatingActionButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         parserAttrs(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        initAfterConstructor();
     }
 
     private void parserAttrs(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.RapidFloatingActionButton, defStyleAttr, defStyleRes);
-        normalColor = a.getColor(R.styleable.RapidFloatingActionButton_rfab_color_normal, Color.WHITE);
+        normalColor = a.getColor(R.styleable.RapidFloatingActionButton_rfab_color_normal, getContext().getResources().getColor(R.color.rfab__color_background_normal));
         pressedColor = a.getColor(R.styleable.RapidFloatingActionButton_rfab_color_pressed, getContext().getResources().getColor(R.color.rfab__color_background_pressed));
         int sizeCode = a.getInt(R.styleable.RapidFloatingActionButton_rfab_size, RFABSize.NORMAL.getCode());
         rfabProperties.setStandardSize(RFABSize.getRFABSizeByCode(sizeCode));
@@ -82,7 +82,7 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
 
     }
 
-    private void init() {
+    private void initAfterConstructor() {
         // 中间图片大小24dp
         int drawableSize = ABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAB_DRAWABLE_SIZE_DP);
 

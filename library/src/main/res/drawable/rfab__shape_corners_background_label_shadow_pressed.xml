@@ -9,7 +9,7 @@
     </item>
     <item android:bottom="1dp" android:right="0.3dp">
         <shape>
-            <solid android:color="@color/rfab__color_shadow"/>
+            <solid android:color="@color/rfab__color_background_pressed"/>
             <padding
                     android:left="16dp"
                     android:top="4dp"

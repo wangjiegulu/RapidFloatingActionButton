@@ -24,28 +24,28 @@ import com.nineoldandroids.animation.ObjectAnimator;
 public class RapidFloatingActionLayout extends RelativeLayout implements OnClickListener {
     public RapidFloatingActionLayout(Context context) {
         super(context);
-        init();
+        initAfterConstructor();
     }
 
     public RapidFloatingActionLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        initAfterConstructor();
     }
 
     public RapidFloatingActionLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        initAfterConstructor();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RapidFloatingActionLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        initAfterConstructor();
     }
 
     public static final long ANIMATION_DURATION = 150/*ms*/;
 
-    private void init() {
+    private void initAfterConstructor() {
 
     }
 

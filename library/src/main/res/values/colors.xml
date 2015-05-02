@@ -3,6 +3,7 @@
     <!-- list类型的文本颜色 -->
     <color name="rfab__color_text_label_item">#777777</color>
     <!-- 背景按压颜色 -->
+    <color name="rfab__color_background_normal">#ffffff</color>
     <color name="rfab__color_background_pressed">#dddddd</color>
     <!-- 背景阴影颜色 -->
     <color name="rfab__color_shadow">#c6c6c6</color>

@@ -18,32 +18,36 @@ import com.nineoldandroids.animation.AnimatorSet;
 public abstract class RapidFloatingActionContent extends FrameLayout {
     public RapidFloatingActionContent(Context context) {
         super(context);
-        init();
+        initAfterConstructor();
     }
 
     public RapidFloatingActionContent(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        initAfterConstructor();
     }
 
     public RapidFloatingActionContent(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init();
+        initAfterConstructor();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RapidFloatingActionContent(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        init();
+        initAfterConstructor();
     }
 
-    protected void init() {
+    protected void initAfterConstructor() {
+
+    }
+
+    protected void initAfterRFABHelperBuild(){
 
     }
 
     protected OnRapidFloatingActionListener onRapidFloatingActionListener;
 
-    public void setOnRapidFloatingActionListener(OnRapidFloatingActionListener onRapidFloatingActionListener) {
+    protected void setOnRapidFloatingActionListener(OnRapidFloatingActionListener onRapidFloatingActionListener) {
         this.onRapidFloatingActionListener = onRapidFloatingActionListener;
     }
 
