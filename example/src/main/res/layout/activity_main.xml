@@ -32,7 +32,7 @@
                 android:layout_marginBottom="15dp"
                 android:padding="8dp"
                 rfab:rfab_size="normal"
-                rfab:rfab_drawable="@drawable/ico_add"
+                rfab:rfab_drawable="@drawable/rfab__drawable_rfab_default"
                 rfab:rfab_color_normal="#37474f"
                 rfab:rfab_color_pressed="#263238"
                 rfab:rfab_shadow_radius="7dp"

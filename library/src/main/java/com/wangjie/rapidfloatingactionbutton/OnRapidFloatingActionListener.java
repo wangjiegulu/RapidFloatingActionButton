@@ -13,6 +13,10 @@ public interface OnRapidFloatingActionListener {
 
     void toggleContent();
 
+    void expandContent();
+
+    void collapseContent();
+
     RapidFloatingActionLayout obtainRFALayout();
 
     RapidFloatingActionButton obtainRFAButton();

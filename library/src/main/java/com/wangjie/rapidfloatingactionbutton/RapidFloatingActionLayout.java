@@ -125,7 +125,13 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         }
     }
 
+    private AnimatorSet animatorSet;
+
     public void expandContent() {
+        if(isExpanded){
+            return;
+        }
+        endAnimatorSet();
         isExpanded = true;
         contentAnimator.setTarget(this.contentView);
         contentAnimator.setFloatValues(0.0f, 1.0f);
@@ -135,7 +141,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         fillFrameAnimator.setFloatValues(0.0f, frameAlpha);
         fillFrameAnimator.setPropertyName("alpha");
 
-        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet = new AnimatorSet();
         animatorSet.playTogether(contentAnimator, fillFrameAnimator);
         animatorSet.setDuration(ANIMATION_DURATION);
         animatorSet.setInterpolator(mAccelerateInterpolator);
@@ -152,7 +158,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-//                isExpanded = true;
+                isExpanded = true;
             }
         });
 
@@ -161,6 +167,10 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
     }
 
     public void collapseContent() {
+        if(!isExpanded){
+            return;
+        }
+        endAnimatorSet();
         isExpanded = false;
         contentAnimator.setTarget(this.contentView);
         contentAnimator.setFloatValues(1.0f, 0.0f);
@@ -170,7 +180,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         fillFrameAnimator.setFloatValues(frameAlpha, 0.0f);
         fillFrameAnimator.setPropertyName("alpha");
 
-        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet = new AnimatorSet();
         animatorSet.playTogether(contentAnimator, fillFrameAnimator);
         animatorSet.setDuration(ANIMATION_DURATION);
         animatorSet.setInterpolator(mAccelerateInterpolator);
@@ -180,19 +190,26 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
             @Override
             public void onAnimationStart(Animator animation) {
                 super.onAnimationStart(animation);
-                contentView.setVisibility(VISIBLE);
                 fillFrameView.setVisibility(VISIBLE);
+                contentView.setVisibility(VISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                contentView.setVisibility(GONE);
                 fillFrameView.setVisibility(GONE);
+                contentView.setVisibility(GONE);
+                isExpanded = false;
             }
         });
         animatorSet.start();
 
+    }
+
+    private void endAnimatorSet() {
+        if (null != animatorSet) {
+            animatorSet.end();
+        }
     }
 
     private ObjectAnimator contentAnimator = new ObjectAnimator();

@@ -34,7 +34,7 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
     /**
      * 默认的drawable
      */
-    private static final int DEFAULT_BUTTON_DRAWABLE_RES_ID = R.drawable.ico_add;
+    private static final int DEFAULT_BUTTON_DRAWABLE_RES_ID = R.drawable.rfab__drawable_rfab_default;
     /**
      * 中间图片大小24dp
      */
@@ -179,7 +179,7 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
     public void onExpandAnimator(AnimatorSet animatorSet) {
         drawableAnimator.cancel();
         drawableAnimator.setTarget(centerIv);
-        drawableAnimator.setFloatValues(0, 45f);
+        drawableAnimator.setFloatValues(0, -45f);
         drawableAnimator.setPropertyName("rotation");
         drawableAnimator.setInterpolator(mOvershootInterpolator);
         animatorSet.playTogether(drawableAnimator);
@@ -188,7 +188,7 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
     public void onCollapseAnimator(AnimatorSet animatorSet) {
         drawableAnimator.cancel();
         drawableAnimator.setTarget(centerIv);
-        drawableAnimator.setFloatValues(45, 0f);
+        drawableAnimator.setFloatValues(-45, 0f);
         drawableAnimator.setPropertyName("rotation");
         drawableAnimator.setInterpolator(mOvershootInterpolator);
         animatorSet.playTogether(drawableAnimator);

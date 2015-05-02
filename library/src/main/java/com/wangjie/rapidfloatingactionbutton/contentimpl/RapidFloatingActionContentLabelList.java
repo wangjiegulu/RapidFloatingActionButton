@@ -7,10 +7,12 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.nineoldandroids.animation.AnimatorSet;
+import com.nineoldandroids.animation.ObjectAnimator;
 import com.wangjie.androidbucket.utils.ABTextUtil;
 import com.wangjie.androidbucket.utils.ABViewUtil;
 import com.wangjie.androidbucket.utils.imageprocess.ABImageProcess;
@@ -103,21 +105,24 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
             RFACLabelItem item = items.get(i);
             // 初始化控件，并设置监听事件
             View itemView = LayoutInflater.from(getContext()).inflate(R.layout.rfab__content_label_list_item, null);
-            View rootView = itemView.findViewById(R.id.rfab__content_label_list_root_view);
+//            View rootView = itemView.findViewById(R.id.rfab__content_label_list_root_view);
+            View rootView = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_root_view);
+
 
             if (0 >= iconShadowRadius) {
                 int padding = ABTextUtil.dip2px(getContext(), 8);
                 rootView.setPadding(0, padding, 0, padding);
             }
 
-            TextView labelTv = (TextView) itemView.findViewById(R.id.rfab__content_label_list_label_tv);
-            ImageView iconIv = (ImageView) itemView.findViewById(R.id.rfab__content_label_list_icon_iv);
+//            TextView labelTv = (TextView) itemView.findViewById(R.id.rfab__content_label_list_label_tv);
+            TextView labelTv = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_label_tv);
+            ImageView iconIv = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_icon_iv);
             rootView.setOnClickListener(this);
             labelTv.setOnClickListener(this);
             iconIv.setOnClickListener(this);
-            rootView.setTag(i);
-            labelTv.setTag(i);
-            iconIv.setTag(i);
+            rootView.setTag(R.id.rfab__id_content_label_list_item_position, i);
+            labelTv.setTag(R.id.rfab__id_content_label_list_item_position, i);
+            iconIv.setTag(R.id.rfab__id_content_label_list_item_position, i);
 
             // 设置item的图片属性
             CircleButtonProperties circleButtonProperties = new CircleButtonProperties()
@@ -196,7 +201,9 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
     @Override
     public void onClick(View v) {
         Integer position;
-        if (null == onRapidFloatingActionContentListener || null == (position = (Integer) v.getTag())) {
+        if (null == onRapidFloatingActionContentListener
+                ||
+                null == (position = (Integer) v.getTag(R.id.rfab__id_content_label_list_item_position))) {
             return;
         }
         int i = v.getId();
@@ -205,21 +212,8 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
         } else if (i == R.id.rfab__content_label_list_icon_iv) {
             onRapidFloatingActionContentListener.onRFACItemIconClick(position, items.get(position));
         } else if (i == R.id.rfab__content_label_list_root_view) {
-            onRapidFloatingActionListener.toggleContent();
+            onRapidFloatingActionListener.collapseContent();
         }
-    }
-
-    private boolean shouldExecuteExpandAnimator;
-    private boolean shouldExecuteCollapseAnimator;
-
-    @Override
-    public void onExpandAnimator(AnimatorSet animatorSet) {
-
-
-    }
-
-    @Override
-    public void onCollapseAnimator(AnimatorSet animatorSet) {
     }
 
     public RapidFloatingActionContentLabelList setIconShadowRadius(int iconShadowRadius) {
@@ -240,6 +234,49 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
     public RapidFloatingActionContentLabelList setIconShadowDy(int iconShadowDy) {
         this.iconShadowDy = iconShadowDy;
         return this;
+    }
+
+    /**
+     * ********************** 每个item动画 ************************
+     */
+    private OvershootInterpolator mOvershootInterpolator = new OvershootInterpolator();
+
+    @Override
+    public void onExpandAnimator(AnimatorSet animatorSet) {
+        int count = contentView.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View rootView = contentView.getChildAt(i);
+            ImageView iconIv = ABViewUtil.obtainView(rootView, R.id.rfab__content_label_list_icon_iv);
+            if (null == iconIv) {
+                return;
+            }
+            ObjectAnimator animator = new ObjectAnimator();
+            animator.setTarget(iconIv);
+            animator.setFloatValues(-45f, 0f);
+            animator.setPropertyName("rotation");
+            animator.setInterpolator(mOvershootInterpolator);
+            animator.setStartDelay((count * i) * 20);
+            animatorSet.playTogether(animator);
+        }
+    }
+
+    @Override
+    public void onCollapseAnimator(AnimatorSet animatorSet) {
+        int count = contentView.getChildCount();
+        for (int i = 0; i < count; i++) {
+            View rootView = contentView.getChildAt(i);
+            ImageView iconIv = ABViewUtil.obtainView(rootView, R.id.rfab__content_label_list_icon_iv);
+            if (null == iconIv) {
+                return;
+            }
+            ObjectAnimator animator = new ObjectAnimator();
+            animator.setTarget(iconIv);
+            animator.setFloatValues(0, -45f);
+            animator.setPropertyName("rotation");
+            animator.setInterpolator(mOvershootInterpolator);
+            animator.setStartDelay((count * i) * 20);
+            animatorSet.playTogether(animator);
+        }
     }
 
 }

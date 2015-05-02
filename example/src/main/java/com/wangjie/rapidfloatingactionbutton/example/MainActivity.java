@@ -34,7 +34,7 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
         rfaContent.setOnRapidFloatingActionContentListener(this);
         List<RFACLabelItem> items = new ArrayList<>();
         items.add(new RFACLabelItem<Integer>()
-                        .setLabel("Invite to Inbox")
+                        .setLabel("Github: wangjiegulu")
                         .setResId(R.drawable.ic_launcher)
                         .setIconNormalColor(0xffd84315)
                         .setIconPressedColor(0xffbf360c)

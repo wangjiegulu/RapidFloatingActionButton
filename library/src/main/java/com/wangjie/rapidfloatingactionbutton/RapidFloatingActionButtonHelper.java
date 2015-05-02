@@ -44,6 +44,16 @@ public final class RapidFloatingActionButtonHelper implements OnRapidFloatingAct
     }
 
     @Override
+    public void expandContent() {
+        rfaLayout.expandContent();
+    }
+
+    @Override
+    public void collapseContent() {
+        rfaLayout.collapseContent();
+    }
+
+    @Override
     public final RapidFloatingActionLayout obtainRFALayout() {
         return rfaLayout;
     }
