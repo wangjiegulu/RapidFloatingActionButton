@@ -5,6 +5,9 @@ Floating Action Button的快速实现，RapidFloatingActionButton（以下简称
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_03.png' height='500px'/>
 
 # 使用方式：
+依赖：
+[AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：基础工具包
+[AndroidInject](https://github.com/wangjiegulu/androidInject)：注解框架
 ## activity_main.xml：
 ```
 <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
@@ -142,7 +145,9 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
 public void onExpandAnimator(AnimatorSet animatorSet);
 public void onCollapseAnimator(AnimatorSet animatorSet);
 ```
-把需要的Animator增加到animatorSet中即可
+把需要的Animator增加到animatorSet中即可</br>
+`另外，作者也会不定期增加更多的RapidFloatingActionContent的扩展`
+
 
 
 License
