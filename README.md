@@ -5,9 +5,9 @@ Floating Action Button的快速实现，RapidFloatingActionButton（以下简称
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_03.png' height='500px'/>
 
 # 使用方式：
-依赖：
-[AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：基础工具包
-[AndroidInject](https://github.com/wangjiegulu/androidInject)：注解框架
+依赖：</br>
+[AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：基础工具包</br>
+[AndroidInject](https://github.com/wangjiegulu/androidInject)：注解框架</br>
 ## activity_main.xml：
 ```
 <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
