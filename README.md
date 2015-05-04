@@ -73,52 +73,54 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         RapidFloatingActionContentLabelList rfaContent = new RapidFloatingActionContentLabelList(context);
         rfaContent.setOnRapidFloatingActionContentListener(this);
         List<RFACLabelItem> items = new ArrayList<>();
         items.add(new RFACLabelItem<Integer>()
                         .setLabel("Github: wangjiegulu")
-                        .setResId(R.drawable.ic_launcher)
+                        .setResId(R.mipmap.ico_test_d)
                         .setIconNormalColor(0xffd84315)
                         .setIconPressedColor(0xffbf360c)
                         .setWrapper(0)
         );
         items.add(new RFACLabelItem<Integer>()
                         .setLabel("tiantian.china.2@gmail.com")
-                        .setResId(R.drawable.ic_launcher)
+                        .setResId(R.mipmap.ico_test_c)
                         .setIconNormalColor(0xff4e342e)
                         .setIconPressedColor(0xff3e2723)
+                        .setLabelColor(Color.WHITE)
+                        .setLabelSizeSp(14)
+                        .setLabelBackgroundDrawable(ABShape.generateCornerShapeDrawable(0xaa000000, ABTextUtil.dip2px(context, 4)))
                         .setWrapper(1)
         );
         items.add(new RFACLabelItem<Integer>()
                         .setLabel("WangJie")
-                        .setResId(R.drawable.ic_launcher)
+                        .setResId(R.mipmap.ico_test_b)
                         .setIconNormalColor(0xff056f00)
                         .setIconPressedColor(0xff0d5302)
+                        .setLabelColor(0xff056f00)
                         .setWrapper(2)
         );
         items.add(new RFACLabelItem<Integer>()
                         .setLabel("Compose")
-                        .setResId(R.drawable.ic_launcher)
+                        .setResId(R.mipmap.ico_test_a)
                         .setIconNormalColor(0xff283593)
                         .setIconPressedColor(0xff1a237e)
+                        .setLabelColor(0xff283593)
                         .setWrapper(3)
         );
         rfaContent
                 .setItems(items)
                 .setIconShadowRadius(ABTextUtil.dip2px(context, 5))
-                .setIconShadowColor(0xff999999)
+                .setIconShadowColor(0xff888888)
                 .setIconShadowDy(ABTextUtil.dip2px(context, 5))
         ;
-
-        rfabHelper = new RapidFloatingActionButtonHelper(
+        rfabHelper = new RapidFloatingActionHelper(
                 context,
                 rfaLayout,
                 rfaBtn,
                 rfaContent
         ).build();
-
     }
     
     @Override
@@ -136,7 +138,7 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
 ```
 
 除了xml中设置的`RapidFloatingActionLayout`和`RapidFloatingActionButton`之外，还需要`RapidFloatingActionContent`的实现类来填充和指定RFAB的内容和形式。</br>
-这里提供了一个快速的`RapidFloatingActionContent`的实现解决方案:`RapidFloatingActionContentLabelList`。你可以加入多个item（RFACLabelItem，当然，不建议加太多的item，导致超过一个屏幕），然后设置每个item的颜色、图标、阴影甚至动画。</br>
+这里提供了一个快速的`RapidFloatingActionContent`的实现解决方案:`RapidFloatingActionContentLabelList`。你可以加入多个item（RFACLabelItem，当然，不建议加太多的item，导致超过一个屏幕），然后设置每个item的颜色、图标、阴影、label的背景图片、字体大小颜色甚至动画。</br>
 它的效果可参考[最上面的效果图片](https://github.com/wangjiegulu/RapidFloatingActionButton/tree/master/screenshot)或者[Google的Inbox](https://play.google.com/store/apps/details?id=com.google.android.apps.inbox)的效果。</br>
 除此之外，你还需要使用`RapidFloatingActionButtonHelper`来把以上所有零散的组件组合起来。
 
