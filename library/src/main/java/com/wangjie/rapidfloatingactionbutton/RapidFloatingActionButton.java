@@ -50,6 +50,9 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
         return centerDrawableIv;
     }
 
+    /**
+     * 图片的所有属性
+     */
     private CircleButtonProperties rfabProperties = new CircleButtonProperties();
 
     /**
@@ -129,8 +132,17 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
     }
 
     private void initAfterConstructor() {
+        this.setOnClickListener(this);
         // 中间图片大小24dp
         buttonDrawableSize = ABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAB_DRAWABLE_SIZE_DP);
+
+        refreshRFABDisplay();
+    }
+
+    /**
+     * 刷新显示
+     */
+    private void refreshRFABDisplay() {
         if (null == buttonDrawable) {
             buttonDrawable = ABImageProcess.getResourceDrawableBounded(getContext(), DEFAULT_BUTTON_DRAWABLE_RES_ID, buttonDrawableSize);
         }
@@ -149,7 +161,6 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
             this.setLayerType(LAYER_TYPE_SOFTWARE, normalDrawable.getPaint());
         }
 
-        this.setOnClickListener(this);
         if (null == centerDrawableIv) {
             this.removeAllViews();
             centerDrawableIv = new ImageView(getContext());
@@ -157,9 +168,8 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
             LayoutParams lp = new LayoutParams(buttonDrawableSize, buttonDrawableSize);
             lp.gravity = Gravity.CENTER;
             centerDrawableIv.setLayoutParams(lp);
-            resetCenterImageView();
         }
-
+        resetCenterImageView();
     }
 
     /**
@@ -187,18 +197,46 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
         }
     }
 
+    /**
+     * 返回图片属性对象，可以通过调用这个
+     * @return
+     */
     public CircleButtonProperties getRfabProperties() {
         return rfabProperties;
     }
 
     /**
-     * 设置按钮drawable
+     * 设置按钮drawable，注意：需要再调用build()方法才能生效
      *
      * @param buttonDrawable
      */
     public void setButtonDrawable(Drawable buttonDrawable) {
         this.buttonDrawable = buttonDrawable;
-        resetCenterImageView();
+    }
+
+    /**
+     * 设置普通状态的颜色，注意：需要再调用build()方法才能生效
+     *
+     * @param normalColor
+     */
+    public void setNormalColor(int normalColor) {
+        this.normalColor = normalColor;
+    }
+
+    /**
+     * 设置触摸按压状态的颜色，注意：需要再调用build()方法才能生效
+     *
+     * @param pressedColor
+     */
+    public void setPressedColor(int pressedColor) {
+        this.pressedColor = pressedColor;
+    }
+
+    /**
+     * 代码中设置完参数后，需要调用build才能生效
+     */
+    public void build() {
+        refreshRFABDisplay();
     }
 
     /**

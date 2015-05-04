@@ -112,6 +112,17 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         }
     }
 
+    public void setFrameColor(int frameColor) {
+        this.frameColor = frameColor;
+        if(null != fillFrameView){
+            fillFrameView.setBackgroundColor(frameColor);
+        }
+    }
+
+    public void setFrameAlpha(float frameAlpha) {
+        this.frameAlpha = frameAlpha;
+    }
+
     private boolean isExpanded = false;
 
     public boolean isExpanded() {
@@ -129,7 +140,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
     private AnimatorSet animatorSet;
 
     public void expandContent() {
-        if(isExpanded){
+        if (isExpanded) {
             return;
         }
         endAnimatorSet();
@@ -168,7 +179,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
     }
 
     public void collapseContent() {
-        if(!isExpanded){
+        if (!isExpanded) {
             return;
         }
         endAnimatorSet();

@@ -18,7 +18,6 @@ import android.graphics.drawable.Drawable;
 public class CircleButtonDrawable extends Drawable {
     private Context context;
     private Paint paint;
-    private int color;
 
     private RectF bounds = new RectF();
     private float halfLen;
@@ -29,7 +28,6 @@ public class CircleButtonDrawable extends Drawable {
     public CircleButtonDrawable(Context context, CircleButtonProperties circleButtonProperties, int color) {
         this.context = context;
         this.circleButtonProperties = circleButtonProperties;
-        this.color = color;
         paint = new Paint();
         paint.setAntiAlias(true);
         /**
@@ -39,7 +37,15 @@ public class CircleButtonDrawable extends Drawable {
         paint.setDither(true);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(color);
-
+        /**
+         * 设置阴影
+         */
+        int dx = circleButtonProperties.getShadowDx();
+        int dy = circleButtonProperties.getShadowDy();
+        paint.setShadowLayer(circleButtonProperties.getShadowRadius(), dx, dy, circleButtonProperties.getShadowColor());
+        /**
+         * 设置绘制的大小范围
+         */
         realSizePx = this.circleButtonProperties.getRealSizePx(context);
         this.setBounds(0, 0, realSizePx, realSizePx);
     }
@@ -62,9 +68,6 @@ public class CircleButtonDrawable extends Drawable {
 
     @Override
     public void draw(Canvas canvas) {
-        int dx = circleButtonProperties.getShadowDx();
-        int dy = circleButtonProperties.getShadowDy();
-        paint.setShadowLayer(circleButtonProperties.getShadowRadius(), dx, dy, circleButtonProperties.getShadowColor());
         canvas.drawCircle(halfLen, halfLen, circleButtonProperties.getStandardSizePx(context) / 2, paint);
     }
 
@@ -73,7 +76,6 @@ public class CircleButtonDrawable extends Drawable {
     }
 
     public CircleButtonDrawable setColor(int color) {
-        this.color = color;
         paint.setColor(color);
         return this;
     }

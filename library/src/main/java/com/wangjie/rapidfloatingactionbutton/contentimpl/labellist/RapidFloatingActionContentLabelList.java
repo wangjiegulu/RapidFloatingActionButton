@@ -1,4 +1,4 @@
-package com.wangjie.rapidfloatingactionbutton.contentimpl;
+package com.wangjie.rapidfloatingactionbutton.contentimpl.labellist;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -22,7 +22,6 @@ import com.wangjie.rapidfloatingactionbutton.R;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABConstants;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABSize;
-import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
 import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonDrawable;
 import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonProperties;
 

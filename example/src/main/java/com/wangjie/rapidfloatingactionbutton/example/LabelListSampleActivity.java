@@ -11,8 +11,8 @@ import com.wangjie.androidinject.annotation.present.AIActionBarActivity;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
-import com.wangjie.rapidfloatingactionbutton.contentimpl.RapidFloatingActionContentLabelList;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
+import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +33,22 @@ public class LabelListSampleActivity extends AIActionBarActivity implements Rapi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        /*
+        // 可通过代码设置属性
+        rfaLayout.setFrameColor(Color.RED);
+        rfaLayout.setFrameAlpha(0.4f);
+
+        rfaBtn.setNormalColor(0xff37474f);
+        rfaBtn.setPressedColor(0xff263238);
+        rfaBtn.getRfabProperties().setShadowDx(ABTextUtil.dip2px(context, 3));
+        rfaBtn.getRfabProperties().setShadowDy(ABTextUtil.dip2px(context, 3));
+        rfaBtn.getRfabProperties().setShadowRadius(ABTextUtil.dip2px(context, 5));
+        rfaBtn.getRfabProperties().setShadowColor(0xffcccccc);
+        rfaBtn.getRfabProperties().setStandardSize(RFABSize.MINI);
+        rfaBtn.build();
+        */
+
 
         RapidFloatingActionContentLabelList rfaContent = new RapidFloatingActionContentLabelList(context);
         rfaContent.setOnRapidFloatingActionContentListener(this);
