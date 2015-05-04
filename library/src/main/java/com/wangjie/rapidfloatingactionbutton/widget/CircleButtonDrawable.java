@@ -36,6 +36,7 @@ public class CircleButtonDrawable extends Drawable {
          * 解决旋转时的锯齿问题
          */
         paint.setFilterBitmap(true);
+        paint.setDither(true);
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(color);
 
