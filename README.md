@@ -8,6 +8,7 @@ Floating Action Button的快速实现，RapidFloatingActionButton（以下简称
 依赖：</br>
 [AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：基础工具包</br>
 [AndroidInject](https://github.com/wangjiegulu/androidInject)：注解框架</br>
+[NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：兼容低版本的动画框架</br>
 ## activity_main.xml：
 ```
 <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
