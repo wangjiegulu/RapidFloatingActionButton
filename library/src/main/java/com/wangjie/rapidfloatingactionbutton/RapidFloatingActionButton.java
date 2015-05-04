@@ -20,6 +20,8 @@ import com.wangjie.androidbucket.utils.imageprocess.ABImageProcess;
 import com.wangjie.androidbucket.utils.imageprocess.ABShape;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABConstants;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABSize;
+import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListener;
+import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingButtonSeparateListener;
 import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonDrawable;
 import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonProperties;
 
@@ -39,7 +41,14 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
      * 中间图片大小24dp
      */
     private int buttonDrawableSize;
-    protected ImageView centerIv;
+    /**
+     * 中间图片ImageView
+     */
+    private ImageView centerDrawableIv;
+
+    public ImageView getCenterDrawableIv() {
+        return centerDrawableIv;
+    }
 
     private CircleButtonProperties rfabProperties = new CircleButtonProperties();
 
@@ -52,9 +61,30 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
      */
     private int pressedColor;
     /**
-     * 按钮图标动画
+     * 按钮图标动画（只有在设置了RFAL和RFAH之后才会有效）
      */
-    private ObjectAnimator drawableAnimator = new ObjectAnimator();
+    private ObjectAnimator mDrawableAnimator;
+    /**
+     * 按钮动画Interpolator（只有在设置了RFAL和RFAH之后才会有效）
+     */
+    private OvershootInterpolator mOvershootInterpolator;
+    /**
+     * 使用了RFAH时会自动设置该listener
+     */
+    private OnRapidFloatingActionListener onRapidFloatingActionListener;
+
+    public void setOnRapidFloatingActionListener(OnRapidFloatingActionListener onRapidFloatingActionListener) {
+        this.onRapidFloatingActionListener = onRapidFloatingActionListener;
+    }
+
+    /**
+     * 只使用RFAB，不使用RFAC、RFAL、RFAH时可使用这个listener来监听点击事件
+     */
+    private OnRapidFloatingButtonSeparateListener onRapidFloatingButtonSeparateListener;
+
+    public void setOnRapidFloatingButtonSeparateListener(OnRapidFloatingButtonSeparateListener onRapidFloatingButtonSeparateListener) {
+        this.onRapidFloatingButtonSeparateListener = onRapidFloatingButtonSeparateListener;
+    }
 
     public RapidFloatingActionButton(Context context) {
         super(context);
@@ -120,13 +150,13 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
         }
 
         this.setOnClickListener(this);
-        if (null == centerIv) {
+        if (null == centerDrawableIv) {
             this.removeAllViews();
-            centerIv = new ImageView(getContext());
-            this.addView(centerIv);
+            centerDrawableIv = new ImageView(getContext());
+            this.addView(centerDrawableIv);
             LayoutParams lp = new LayoutParams(buttonDrawableSize, buttonDrawableSize);
             lp.gravity = Gravity.CENTER;
-            centerIv.setLayoutParams(lp);
+            centerDrawableIv.setLayoutParams(lp);
             resetCenterImageView();
         }
 
@@ -137,15 +167,8 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
      */
     private void resetCenterImageView() {
         buttonDrawable.setBounds(0, 0, buttonDrawableSize, buttonDrawableSize);
-        centerIv.setImageDrawable(buttonDrawable);
+        centerDrawableIv.setImageDrawable(buttonDrawable);
     }
-
-    private OnRapidFloatingActionListener onRapidFloatingActionListener;
-
-    public void setOnRapidFloatingActionListener(OnRapidFloatingActionListener onRapidFloatingActionListener) {
-        this.onRapidFloatingActionListener = onRapidFloatingActionListener;
-    }
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -157,7 +180,10 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
     @Override
     public void onClick(View v) {
         if (null != onRapidFloatingActionListener) {
-            onRapidFloatingActionListener.onFABClick();
+            onRapidFloatingActionListener.onRFABClick();
+        }
+        if (null != onRapidFloatingButtonSeparateListener) {
+            onRapidFloatingButtonSeparateListener.onRFABClick();
         }
     }
 
@@ -175,26 +201,49 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
         resetCenterImageView();
     }
 
-
+    /**
+     * 默认的button旋转动画（只有在设置了RFAL和RFAH之后才会有效）
+     *
+     * @param animatorSet
+     */
     public void onExpandAnimator(AnimatorSet animatorSet) {
-        drawableAnimator.cancel();
-        drawableAnimator.setTarget(centerIv);
-        drawableAnimator.setFloatValues(0, -45f);
-        drawableAnimator.setPropertyName("rotation");
-        drawableAnimator.setInterpolator(mOvershootInterpolator);
-        animatorSet.playTogether(drawableAnimator);
+        ensureDrawableAnimator();
+        ensureDrawableInterpolator();
+        mDrawableAnimator.cancel();
+        mDrawableAnimator.setTarget(centerDrawableIv);
+        mDrawableAnimator.setFloatValues(0, 45f);
+        mDrawableAnimator.setPropertyName("rotation");
+        mDrawableAnimator.setInterpolator(mOvershootInterpolator);
+        animatorSet.playTogether(mDrawableAnimator);
     }
 
     public void onCollapseAnimator(AnimatorSet animatorSet) {
-        drawableAnimator.cancel();
-        drawableAnimator.setTarget(centerIv);
-        drawableAnimator.setFloatValues(-45, 0f);
-        drawableAnimator.setPropertyName("rotation");
-        drawableAnimator.setInterpolator(mOvershootInterpolator);
-        animatorSet.playTogether(drawableAnimator);
+        ensureDrawableAnimator();
+        ensureDrawableInterpolator();
+        mDrawableAnimator.cancel();
+        mDrawableAnimator.setTarget(centerDrawableIv);
+        mDrawableAnimator.setFloatValues(45, 0f);
+        mDrawableAnimator.setPropertyName("rotation");
+        mDrawableAnimator.setInterpolator(mOvershootInterpolator);
+        animatorSet.playTogether(mDrawableAnimator);
     }
 
-    private OvershootInterpolator mOvershootInterpolator = new OvershootInterpolator();
+    /**
+     * 只有在设置了RFAL和RFAH之后才去生成ObjectAnimator实例
+     */
+    private void ensureDrawableAnimator() {
+        if (null == mDrawableAnimator) {
+            mDrawableAnimator = new ObjectAnimator();
+        }
+    }
 
+    /**
+     * 只有在设置了RFAL和RFAH之后才去生成Interpolator实例
+     */
+    private void ensureDrawableInterpolator() {
+        if (null == mOvershootInterpolator) {
+            mOvershootInterpolator = new OvershootInterpolator();
+        }
+    }
 
 }

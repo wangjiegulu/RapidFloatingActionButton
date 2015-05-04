@@ -15,6 +15,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListener;
 
 /**
  * Author: wangjie

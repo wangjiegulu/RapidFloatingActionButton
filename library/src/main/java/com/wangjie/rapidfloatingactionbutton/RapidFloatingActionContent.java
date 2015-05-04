@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import com.nineoldandroids.animation.AnimatorSet;
+import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListener;
 
 /**
  * Author: wangjie

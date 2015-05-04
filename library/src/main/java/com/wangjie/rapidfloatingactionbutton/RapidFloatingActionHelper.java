@@ -2,20 +2,21 @@ package com.wangjie.rapidfloatingactionbutton;
 
 import android.content.Context;
 import com.nineoldandroids.animation.AnimatorSet;
+import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListener;
 
 /**
  * Author: wangjie
  * Email: tiantian.china.2@gmail.com
  * Date: 4/29/15.
  */
-public final class RapidFloatingActionButtonHelper implements OnRapidFloatingActionListener {
+public final class RapidFloatingActionHelper implements OnRapidFloatingActionListener {
     private Context context;
     private RapidFloatingActionLayout rfaLayout;
     private RapidFloatingActionButton rfaBtn;
     private RapidFloatingActionContent rfaContent;
 
 
-    public RapidFloatingActionButtonHelper(Context context, RapidFloatingActionLayout rfaLayout, RapidFloatingActionButton rfaBtn, RapidFloatingActionContent rfaContent) {
+    public RapidFloatingActionHelper(Context context, RapidFloatingActionLayout rfaLayout, RapidFloatingActionButton rfaBtn, RapidFloatingActionContent rfaContent) {
         this.context = context;
         this.rfaLayout = rfaLayout;
         this.rfaBtn = rfaBtn;
@@ -23,7 +24,7 @@ public final class RapidFloatingActionButtonHelper implements OnRapidFloatingAct
     }
 
 
-    public final RapidFloatingActionButtonHelper build() {
+    public final RapidFloatingActionHelper build() {
         rfaLayout.setOnRapidFloatingActionListener(this);
         rfaBtn.setOnRapidFloatingActionListener(this);
         rfaContent.setOnRapidFloatingActionListener(this);
@@ -34,7 +35,7 @@ public final class RapidFloatingActionButtonHelper implements OnRapidFloatingAct
     }
 
     @Override
-    public void onFABClick() {
+    public void onRFABClick() {
         rfaLayout.toggleContent();
     }
 

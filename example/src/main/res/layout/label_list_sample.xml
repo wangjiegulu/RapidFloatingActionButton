@@ -1,0 +1,50 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#eeeeee"
+                tools:context=".MainActivity">
+
+    <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
+            xmlns:rfal="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/label_list_sample_rfal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            rfal:rfal_frame_color="#ffffff"
+            rfal:rfal_frame_alpha="0.7"
+            >
+
+        <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:gravity="center_vertical"
+                  android:lineSpacingMultiplier="1.3"
+                  android:padding="30dp"
+                  android:textSize="16sp"
+                  android:text="这是一个包含RFAC的RFAB实现，点击RFAB后会展开或者收缩RFAC，本案例RFAC实现为RapidFloatingActionContentLabelList，它的内容包含多个item，每个item都由一个label和一个icon组成。"
+                />
+
+
+        <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+                xmlns:rfab="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/label_list_sample_rfab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                android:padding="8dp"
+                rfab:rfab_size="normal"
+                rfab:rfab_drawable="@drawable/rfab__drawable_rfab_default"
+                rfab:rfab_color_normal="#37474f"
+                rfab:rfab_color_pressed="#263238"
+                rfab:rfab_shadow_radius="7dp"
+                rfab:rfab_shadow_color="#999999"
+                rfab:rfab_shadow_dx="0dp"
+                rfab:rfab_shadow_dy="5dp"
+                />
+
+
+    </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>
+
+
+</RelativeLayout>

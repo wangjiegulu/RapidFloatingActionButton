@@ -108,12 +108,6 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
 //            View rootView = itemView.findViewById(R.id.rfab__content_label_list_root_view);
             View rootView = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_root_view);
 
-
-            if (0 >= iconShadowRadius) {
-                int padding = ABTextUtil.dip2px(getContext(), 8);
-                rootView.setPadding(0, padding, 0, padding);
-            }
-
 //            TextView labelTv = (TextView) itemView.findViewById(R.id.rfab__content_label_list_label_tv);
             TextView labelTv = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_label_tv);
             ImageView iconIv = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_icon_iv);
@@ -131,6 +125,15 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
                     .setShadowRadius(iconShadowRadius)
                     .setShadowDx(iconShadowDx)
                     .setShadowDy(iconShadowDy);
+
+            // 为了视觉效果，每个item行间距至少是8dp
+            int shadowOffsetHalf = circleButtonProperties.getShadowOffsetHalf();
+            int minPadding = ABTextUtil.dip2px(getContext(), 8);
+            if (shadowOffsetHalf < minPadding) {
+                int deltaPadding = minPadding - shadowOffsetHalf;
+                rootView.setPadding(0, deltaPadding, 0, deltaPadding);
+            }
+
             // 设置iconIv的位置（需要与RFAB居中）
             int realItemSize = circleButtonProperties.getRealSizePx(getContext());
             LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) iconIv.getLayoutParams();
@@ -157,7 +160,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
 
             ABViewUtil.setBackgroundDrawable(iconIv, ABShape.selectorClickSimple(rfacNormalDrawable, rfacPressedDrawable));
             // 设置中间图标的大小
-            int padding = ABTextUtil.dip2px(getContext(), 8) + circleButtonProperties.getShadowOffsetHalf();
+            int padding = ABTextUtil.dip2px(getContext(), 8) + shadowOffsetHalf;
             iconIv.setPadding(padding, padding, padding, padding);
 
             // 渲染UI
@@ -252,7 +255,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
             }
             ObjectAnimator animator = new ObjectAnimator();
             animator.setTarget(iconIv);
-            animator.setFloatValues(-45f, 0f);
+            animator.setFloatValues(45f, 0f);
             animator.setPropertyName("rotation");
             animator.setInterpolator(mOvershootInterpolator);
             animator.setStartDelay((count * i) * 20);
@@ -271,7 +274,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
             }
             ObjectAnimator animator = new ObjectAnimator();
             animator.setTarget(iconIv);
-            animator.setFloatValues(0, -45f);
+            animator.setFloatValues(0, 45f);
             animator.setPropertyName("rotation");
             animator.setInterpolator(mOvershootInterpolator);
             animator.setStartDelay((count * i) * 20);
