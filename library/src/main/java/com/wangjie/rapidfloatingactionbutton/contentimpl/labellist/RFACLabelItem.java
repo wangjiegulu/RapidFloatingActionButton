@@ -14,12 +14,15 @@ public class RFACLabelItem<T> implements Serializable {
     private Drawable drawable;
     private Integer iconNormalColor;
     private Integer iconPressedColor;
-    private String label;
     private T wrapper;
     /**
      * 是否加粗字体
      */
     private boolean labelTextBold = true;
+    private String label;
+    private Integer labelColor;
+    private Integer labelSizeSp;
+    private Drawable labelBackgroundDrawable;
 
     public RFACLabelItem() {
     }
@@ -89,6 +92,34 @@ public class RFACLabelItem<T> implements Serializable {
 
     public RFACLabelItem<T> setLabelTextBold(boolean labelTextBold) {
         this.labelTextBold = labelTextBold;
+        return this;
+    }
+
+
+    public Drawable getLabelBackgroundDrawable() {
+        return labelBackgroundDrawable;
+    }
+
+    public RFACLabelItem<T> setLabelBackgroundDrawable(Drawable labelBackgroundDrawable) {
+        this.labelBackgroundDrawable = labelBackgroundDrawable;
+        return this;
+    }
+
+    public Integer getLabelColor() {
+        return labelColor;
+    }
+
+    public RFACLabelItem<T> setLabelColor(Integer labelColor) {
+        this.labelColor = labelColor;
+        return this;
+    }
+
+    public Integer getLabelSizeSp() {
+        return labelSizeSp;
+    }
+
+    public RFACLabelItem<T> setLabelSizeSp(Integer labelSizeSp) {
+        this.labelSizeSp = labelSizeSp;
         return this;
     }
 }

@@ -18,7 +18,9 @@
             android:paddingRight="10dp"
             android:minWidth="50dp"
             android:background="@drawable/rfab__shape_corners_background_label_shadow_selector"
+            android:textSize="14sp"
             android:textColor="@color/rfab__color_text_label_item"
+            android:singleLine="true"
             />
 
     <ImageView

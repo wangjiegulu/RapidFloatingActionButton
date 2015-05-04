@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,10 +106,8 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
             RFACLabelItem item = items.get(i);
             // 初始化控件，并设置监听事件
             View itemView = LayoutInflater.from(getContext()).inflate(R.layout.rfab__content_label_list_item, null);
-//            View rootView = itemView.findViewById(R.id.rfab__content_label_list_root_view);
             View rootView = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_root_view);
 
-//            TextView labelTv = (TextView) itemView.findViewById(R.id.rfab__content_label_list_label_tv);
             TextView labelTv = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_label_tv);
             ImageView iconIv = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_icon_iv);
             rootView.setOnClickListener(this);
@@ -173,6 +172,19 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
                 }
                 labelTv.setVisibility(VISIBLE);
                 labelTv.setText(label);
+                Drawable bgDrawable = item.getLabelBackgroundDrawable();
+                if (null != bgDrawable) {
+                    ABViewUtil.setBackgroundDrawable(labelTv, bgDrawable);
+                }
+                Integer labelColor = item.getLabelColor();
+                if (null != labelColor) {
+                    labelTv.setTextColor(labelColor);
+                }
+                Integer labelSize = item.getLabelSizeSp();
+                if (null != labelSize) {
+                    labelTv.setTextSize(TypedValue.COMPLEX_UNIT_SP, labelSize);
+                }
+
             }
             int resId = item.getResId();
             if (resId > 0) {
