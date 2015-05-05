@@ -3,4 +3,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!-- 用于通过唯一的identificationCode获取 -->
+    <string name="rfab_identification_code_fragment_a">RFAB_IDENTIFICATION_CODE_FRAGMENT_A</string>
+    <string name="rfab_identification_code_fragment_b">RFAB_IDENTIFICATION_CODE_FRAGMENT_B</string>
+    <string name="rfab_identification_code_fragment_c">RFAB_IDENTIFICATION_CODE_FRAGMENT_C</string>
 </resources>

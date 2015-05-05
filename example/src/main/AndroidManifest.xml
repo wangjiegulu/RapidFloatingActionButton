@@ -19,6 +19,8 @@
 
         <activity android:name=".LabelListSampleActivity"/>
         <activity android:name=".SeparateRFABSampleActivity"/>
+        <activity android:name=".rfabgroup.RFABGroupSampleActivity"/>
+
 
 
     </application>

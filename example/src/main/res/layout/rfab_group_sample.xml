@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+            android:id="@+id/rfab_group_sample_vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            >
+
+        <android.support.v4.view.PagerTabStrip
+                android:id="@+id/rfab_group_sample_pts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                />
+    </android.support.v4.view.ViewPager>
+
+
+    <com.wangjie.rapidfloatingactionbutton.rfabgroup.RapidFloatingActionButtonGroup
+            android:id="@+id/rfab_group_sample_rfabg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="15dp"
+            >
+
+        <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+                xmlns:rfab="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rfab_group_sample_rfab_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                rfab:rfab_size="normal"
+                rfab:rfab_drawable="@drawable/rfab__drawable_rfab_default"
+                rfab:rfab_color_normal="#d84315"
+                rfab:rfab_color_pressed="#bf360c"
+                rfab:rfab_shadow_radius="7dp"
+                rfab:rfab_shadow_color="#999999"
+                rfab:rfab_shadow_dx="0dp"
+                rfab:rfab_shadow_dy="5dp"
+                rfab:rfab_identification_code="@string/rfab_identification_code_fragment_a"
+                />
+
+        <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+                xmlns:rfab="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rfab_group_sample_rfab_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                rfab:rfab_size="normal"
+                rfab:rfab_drawable="@mipmap/ico_test_b"
+                rfab:rfab_color_normal="#283593"
+                rfab:rfab_color_pressed="#1a237e"
+                rfab:rfab_shadow_radius="7dp"
+                rfab:rfab_shadow_color="#999999"
+                rfab:rfab_shadow_dx="0dp"
+                rfab:rfab_shadow_dy="5dp"
+                rfab:rfab_identification_code="@string/rfab_identification_code_fragment_b"
+                />
+
+        <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+                xmlns:rfab="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rfab_group_sample_rfab_c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                rfab:rfab_size="normal"
+                rfab:rfab_drawable="@mipmap/ico_test_c"
+                rfab:rfab_color_normal="#056f00"
+                rfab:rfab_color_pressed="#0d5302"
+                rfab:rfab_shadow_radius="7dp"
+                rfab:rfab_shadow_color="#999999"
+                rfab:rfab_shadow_dx="0dp"
+                rfab:rfab_shadow_dy="5dp"
+                rfab:rfab_identification_code="@string/rfab_identification_code_fragment_c"
+                />
+
+    </com.wangjie.rapidfloatingactionbutton.rfabgroup.RapidFloatingActionButtonGroup>
+
+</RelativeLayout>

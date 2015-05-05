@@ -15,6 +15,7 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.wangjie.androidbucket.log.Logger;
 import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListener;
 
 /**
@@ -23,6 +24,8 @@ import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListe
  * Date: 4/29/15.
  */
 public class RapidFloatingActionLayout extends RelativeLayout implements OnClickListener {
+    private static final String TAG = RapidFloatingActionLayout.class.getSimpleName();
+
     public RapidFloatingActionLayout(Context context) {
         super(context);
         initAfterConstructor();
@@ -84,7 +87,9 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
             throw new RuntimeException("contentView can not be null");
         }
         if (null != this.contentView) {
-            throw new RuntimeException("contentView: [" + this.contentView + "] is already initialed");
+            this.removeView(this.contentView);
+//            throw new RuntimeException("contentView: [" + this.contentView + "] is already initialed");
+            Logger.w(TAG, "contentView: [" + this.contentView + "] is already initialed");
         }
         this.contentView = contentView;
         // 添加背景覆盖层

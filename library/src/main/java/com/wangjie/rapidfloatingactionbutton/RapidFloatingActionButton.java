@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
@@ -31,7 +32,26 @@ import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonProperties;
  * Date: 4/29/15.
  */
 public class RapidFloatingActionButton extends FrameLayout implements View.OnClickListener {
+    /**
+     * 默认的identificationCode
+     */
+    public static final String IDENTIFICATION_CODE_NONE = "";
+    /**
+     * identificationCode用于确定唯一个RFAB，目前用在通过RapidFloatingActionButtonGroup中获取某一个RFAB
+     */
+    private String identificationCode = IDENTIFICATION_CODE_NONE;
 
+    public String getIdentificationCode() {
+        return identificationCode;
+    }
+
+    public void setIdentificationCode(@NonNull String identificationCode) {
+        this.identificationCode = identificationCode;
+    }
+
+    /**
+     * 中间图标
+     */
     private Drawable buttonDrawable;
     /**
      * 默认的drawable
@@ -117,17 +137,23 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
     private void parserAttrs(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         final TypedArray a = context.obtainStyledAttributes(
                 attrs, R.styleable.RapidFloatingActionButton, defStyleAttr, defStyleRes);
-        buttonDrawable = a.getDrawable(R.styleable.RapidFloatingActionButton_rfab_drawable);
-        normalColor = a.getColor(R.styleable.RapidFloatingActionButton_rfab_color_normal, getContext().getResources().getColor(R.color.rfab__color_background_normal));
-        pressedColor = a.getColor(R.styleable.RapidFloatingActionButton_rfab_color_pressed, getContext().getResources().getColor(R.color.rfab__color_background_pressed));
-        int sizeCode = a.getInt(R.styleable.RapidFloatingActionButton_rfab_size, RFABSize.NORMAL.getCode());
-        rfabProperties.setStandardSize(RFABSize.getRFABSizeByCode(sizeCode));
-        rfabProperties.setShadowColor(a.getInt(R.styleable.RapidFloatingActionButton_rfab_shadow_color, Color.TRANSPARENT));
-        rfabProperties.setShadowDx(a.getDimensionPixelSize(R.styleable.RapidFloatingActionButton_rfab_shadow_dx, 0));
-        rfabProperties.setShadowDy(a.getDimensionPixelSize(R.styleable.RapidFloatingActionButton_rfab_shadow_dy, 0));
-        rfabProperties.setShadowRadius(a.getDimensionPixelSize(R.styleable.RapidFloatingActionButton_rfab_shadow_radius, 0));
-
-        a.recycle();
+        try {
+            identificationCode = a.getString(R.styleable.RapidFloatingActionButton_rfab_identification_code);
+            if (null == identificationCode) {
+                identificationCode = IDENTIFICATION_CODE_NONE;
+            }
+            buttonDrawable = a.getDrawable(R.styleable.RapidFloatingActionButton_rfab_drawable);
+            normalColor = a.getColor(R.styleable.RapidFloatingActionButton_rfab_color_normal, getContext().getResources().getColor(R.color.rfab__color_background_normal));
+            pressedColor = a.getColor(R.styleable.RapidFloatingActionButton_rfab_color_pressed, getContext().getResources().getColor(R.color.rfab__color_background_pressed));
+            int sizeCode = a.getInt(R.styleable.RapidFloatingActionButton_rfab_size, RFABSize.NORMAL.getCode());
+            rfabProperties.setStandardSize(RFABSize.getRFABSizeByCode(sizeCode));
+            rfabProperties.setShadowColor(a.getInt(R.styleable.RapidFloatingActionButton_rfab_shadow_color, Color.TRANSPARENT));
+            rfabProperties.setShadowDx(a.getDimensionPixelSize(R.styleable.RapidFloatingActionButton_rfab_shadow_dx, 0));
+            rfabProperties.setShadowDy(a.getDimensionPixelSize(R.styleable.RapidFloatingActionButton_rfab_shadow_dy, 0));
+            rfabProperties.setShadowRadius(a.getDimensionPixelSize(R.styleable.RapidFloatingActionButton_rfab_shadow_radius, 0));
+        } finally {
+            a.recycle();
+        }
 
     }
 
@@ -199,6 +225,7 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
 
     /**
      * 返回图片属性对象，可以通过调用这个
+     *
      * @return
      */
     public CircleButtonProperties getRfabProperties() {
@@ -249,7 +276,7 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
         ensureDrawableInterpolator();
         mDrawableAnimator.cancel();
         mDrawableAnimator.setTarget(centerDrawableIv);
-        mDrawableAnimator.setFloatValues(0, 45f);
+        mDrawableAnimator.setFloatValues(0, -45f);
         mDrawableAnimator.setPropertyName("rotation");
         mDrawableAnimator.setInterpolator(mOvershootInterpolator);
         animatorSet.playTogether(mDrawableAnimator);
@@ -260,7 +287,7 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
         ensureDrawableInterpolator();
         mDrawableAnimator.cancel();
         mDrawableAnimator.setTarget(centerDrawableIv);
-        mDrawableAnimator.setFloatValues(45, 0f);
+        mDrawableAnimator.setFloatValues(-45f, 0);
         mDrawableAnimator.setPropertyName("rotation");
         mDrawableAnimator.setInterpolator(mOvershootInterpolator);
         animatorSet.playTogether(mDrawableAnimator);

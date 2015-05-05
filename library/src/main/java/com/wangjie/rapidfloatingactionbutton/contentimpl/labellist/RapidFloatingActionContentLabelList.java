@@ -266,7 +266,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
             }
             ObjectAnimator animator = new ObjectAnimator();
             animator.setTarget(iconIv);
-            animator.setFloatValues(45f, 0f);
+            animator.setFloatValues(45f, 0);
             animator.setPropertyName("rotation");
             animator.setInterpolator(mOvershootInterpolator);
             animator.setStartDelay((count * i) * 20);

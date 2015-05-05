@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
+            xmlns:rfal="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/rfab_group_sample_fragment_a_rfal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            rfal:rfal_frame_color="#ffffff"
+            rfal:rfal_frame_alpha="0.7"
+            >
+
+        <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                  android:gravity="center_vertical"
+                  android:lineSpacingMultiplier="1.3"
+                  android:padding="30dp"
+                  android:textSize="16sp"
+                  android:background="#aacbacba"
+                  android:text="该RFAB在RFAGroupSampleActivity中"
+                />
+        <!-- 只是用于占位，id和位置必须跟RFABGroupSampleActivity中的RFAB位置完全一致！ -->
+        <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
+                xmlns:rfab="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/rfab_group_sample_rfab_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="15dp"
+                rfab:rfab_size="normal"
+                rfab:rfab_drawable="@drawable/rfab__drawable_rfab_default"
+                rfab:rfab_color_normal="#d84315"
+                rfab:rfab_color_pressed="#bf360c"
+                rfab:rfab_shadow_radius="7dp"
+                rfab:rfab_shadow_color="#999999"
+                rfab:rfab_shadow_dx="0dp"
+                rfab:rfab_shadow_dy="5dp"
+                rfab:rfab_identification_code="@string/rfab_identification_code_fragment_a"
+                android:visibility="invisible"
+                />
+
+    </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>
+
+</RelativeLayout>

@@ -23,6 +23,20 @@ public final class RapidFloatingActionHelper implements OnRapidFloatingActionLis
         this.rfaContent = rfaContent;
     }
 
+    public RapidFloatingActionHelper setRfaLayout(RapidFloatingActionLayout rfaLayout) {
+        this.rfaLayout = rfaLayout;
+        return this;
+    }
+
+    public RapidFloatingActionHelper setRfaButton(RapidFloatingActionButton rfaBtn) {
+        this.rfaBtn = rfaBtn;
+        return this;
+    }
+
+    public RapidFloatingActionHelper setRfaContent(RapidFloatingActionContent rfaContent) {
+        this.rfaContent = rfaContent;
+        return this;
+    }
 
     public final RapidFloatingActionHelper build() {
         rfaLayout.setOnRapidFloatingActionListener(this);

@@ -20,6 +20,10 @@
         <attr name="rfab_shadow_color" format="color"/>
         <attr name="rfab_shadow_dx" format="dimension"/>
         <attr name="rfab_shadow_dy" format="dimension"/>
+        <!-- identificationCode用于确定唯一个RFAB，目前用在通过RapidFloatingActionButtonGroup中获取某一个RFAB -->
+        <attr name="rfab_identification_code" format="string"/>
     </declare-styleable>
+
+
 
 </resources>

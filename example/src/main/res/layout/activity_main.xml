@@ -8,17 +8,23 @@
               tools:context=".MainActivity">
 
     <Button
-            android:id="@+id/activity_main_label_list_sample_btn"
-            android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:text="label list sample"
-            />
-
-    <Button
             android:id="@+id/activity_main_separate_rfab_sample_btn"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:textAllCaps="false"
             android:text="separate rfab sample"
             />
+    <Button
+            android:id="@+id/activity_main_label_list_sample_btn"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="label list sample"
+            />
+    <Button
+            android:id="@+id/activity_main_rfab_group_btn"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="rfab group sample"
+            />
+
 
 </LinearLayout>
