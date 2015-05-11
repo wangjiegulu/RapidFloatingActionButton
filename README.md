@@ -6,7 +6,7 @@ Quick solutions for Floating Action Button，RapidFloatingActionButton（RFAB）
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_03.png' height='500px'/>
 
 # How to use：
-依赖：</br>
+Dependencies：</br>
 [AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：The base library</br>
 [AndroidInject](https://github.com/wangjiegulu/androidInject)：The Inject library</br>
 [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：The Property Animation library for pre android 3.0</br>
