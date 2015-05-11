@@ -140,7 +140,7 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
 
 RFAB also need a implement of `RapidFloatingActionContent` to fill and assign content of RFAB when it expand。</br>
 I provided a quick solutions of `RapidFloatingActionContent`:`RapidFloatingActionContentLabelList`.You can add some items（RFACLabelItem，of caurse not recommended to add too maney items），and config color, drawable, shadow, background image, text size, color of label, animation of each item.</br>
-It's effect[The top picture effects](https://github.com/wangjiegulu/RapidFloatingActionButton/tree/master/screenshot)or[Inbox of Google](https://play.google.com/store/apps/details?id=com.google.android.apps.inbox).</br>
+It's effect [The top picture effects](https://github.com/wangjiegulu/RapidFloatingActionButton/tree/master/screenshot) or [Inbox of Google](https://play.google.com/store/apps/details?id=com.google.android.apps.inbox).</br>
 At last，you need combine them use `RapidFloatingActionButtonHelper`.
 
 #About expand style：
