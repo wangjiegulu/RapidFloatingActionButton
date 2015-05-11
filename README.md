@@ -138,18 +138,18 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
 }
 ```
 
-RFAB also need a implement of `RapidFloatingActionContent` to fill and assign content of RFAB when it expand。</br>
-I provided a quick solutions of `RapidFloatingActionContent`:`RapidFloatingActionContentLabelList`.You can add some items（RFACLabelItem，of caurse not recommended to add too maney items），and config color, drawable, shadow, background image, text size, color of label, animation of each item.</br>
-It's effect [The top picture effects](https://github.com/wangjiegulu/RapidFloatingActionButton/tree/master/screenshot) or [Inbox of Google](https://play.google.com/store/apps/details?id=com.google.android.apps.inbox).</br>
-At last，you need combine them use `RapidFloatingActionButtonHelper`.
+RFAB also needs an implementation of `RapidFloatingActionContent` to fill and assign content of RFAB when it expands.</br>
+Here is a quick solution of `RapidFloatingActionContent`:`RapidFloatingActionContentLabelList`.You can add some items（RFACLabelItem，of course not recommended to add too many items），and config color, drawable, shadow, background image, text size, color of label and animation of each item.</br>
+To preview the demo: [The top picture effects](https://github.com/wangjiegulu/RapidFloatingActionButton/tree/master/screenshot) or [Inbox of Google](https://play.google.com/store/apps/details?id=com.google.android.apps.inbox).</br>
+At last，you need combine them by `RapidFloatingActionButtonHelper`.
 
 #About expand style：
-If you don't like `RapidFloatingActionContentLabelList`，you can expand your content style. extends `com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent`，and initialize the content layout and style，and invoke `setRootView(xxx);` method。If you want to add more animations，override those methods：</br>
+If you don't like `RapidFloatingActionContentLabelList`，you can expand your content style. Extend `com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent`, initialize the content layout and style，and invoke `setRootView(xxx);` method. If you want to add more animations，override those methods：</br>
 ```
 public void onExpandAnimator(AnimatorSet animatorSet);
 public void onCollapseAnimator(AnimatorSet animatorSet);
 ```
-add your animation to the animatorSet</br>
+add your animations to the animatorSet.</br>
 
 
 
