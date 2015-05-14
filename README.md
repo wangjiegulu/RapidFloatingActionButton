@@ -1,14 +1,15 @@
 # RapidFloatingActionButton
-Floating Action Button的快速实现，RapidFloatingActionButton（以下简称RFAB）</br>
+Quick solutions for Floating Action Button，RapidFloatingActionButton（RFAB）</br>
+<img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_label_list.gif' height='500px'/>
+<img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfabg.gif' height='500px'/>
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_01.png' height='500px'/>
-<img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_02.png' height='500px'/>
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_03.png' height='500px'/>
 
-# 使用方式：
-依赖：</br>
-[AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：基础工具包</br>
-[AndroidInject](https://github.com/wangjiegulu/androidInject)：注解框架</br>
-[NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：兼容低版本的动画框架</br>
+# How to use：
+Dependencies：</br>
+[AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：The base library</br>
+[AndroidInject](https://github.com/wangjiegulu/androidInject)：The Inject library</br>
+[NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：The Property Animation library for pre android 3.0</br>
 ## activity_main.xml：
 ```
 <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
@@ -40,23 +41,23 @@ Floating Action Button的快速实现，RapidFloatingActionButton（以下简称
           />
 </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>
 ```
-在需要增加RFAB最外层使用`<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>`，按钮使用`<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton>`
+Add`<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>` at outermost layout of RFAB(`<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton>`)
 
-###属性解释
+###Properties
 ####RapidFloatingActionLayout:</br>
-      rfal_frame_color: 展开RFAB时候最外覆盖层的颜色，默认是纯白色
-      rfal_frame_alpha: 展开RFAB时候最外覆盖层的透明度(0 ~ 1)，默认是0.7
+      rfal_frame_color: Frame color when expand RFAB，default is white color
+      rfal_frame_alpha: Frame color alpha(0 ~ 1) when expand RFAB，default is 0.7
 ####RapidFloatingActionButton:</br>
-      rfab_size: RFAB的尺寸大小，只支持两种尺寸（Material Design规范）：
-              normal: 直径56dp
-              mini: 直径40dp
-      rfab_drawable: RFAB中间的图标，默认是一个"+"图标
-      rfab_color_normal: RFAB背景的普通状态下的颜色。默认是白色
-      rfab_color_pressed: RFAB背景的触摸按下状态的颜色。默认颜色是"#dddddd"
-      rfab_shadow_radius: RFAB的阴影半径。默认是0，表示没有阴影
-      rfab_shadow_color: RFAB的阴影颜色。默认是透明，另外如果rfab_shadow_radius为0，则该属性无效
-      rfab_shadow_dx: RFAB的阴影X轴偏移量。默认是0
-      rfab_shadow_dy: RFAB的阴影Y轴偏移量。默认是0
+      rfab_size: The size of RFAB，only support two size（Material Design）：
+              normal: diameter 56dp
+              mini: diameter 40dp
+      rfab_drawable: The drawable of RFAB，default drawable is "+"
+      rfab_color_normal: Normal status color of RFAB。default is white
+      rfab_color_pressed: Pressed status color of RFAB。default is "#dddddd"
+      rfab_shadow_radius: Shadow radius of RFAB。default is 0(no shadow)
+      rfab_shadow_color: Shadow color of RFAB。default is transparent. it will be invalid if the rfab_shadow_radius is 0
+      rfab_shadow_dx: The shadow offset of RFAB(x-axis)。default is 0
+      rfab_shadow_dy: The shadow offset of RFAB(y-axis)。default is 0
 
 
 ## MainActivity：
@@ -137,19 +138,18 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
 }
 ```
 
-除了xml中设置的`RapidFloatingActionLayout`和`RapidFloatingActionButton`之外，还需要`RapidFloatingActionContent`的实现类来填充和指定RFAB的内容和形式。</br>
-这里提供了一个快速的`RapidFloatingActionContent`的实现解决方案:`RapidFloatingActionContentLabelList`。你可以加入多个item（RFACLabelItem，当然，不建议加太多的item，导致超过一个屏幕），然后设置每个item的颜色、图标、阴影、label的背景图片、字体大小颜色甚至动画。</br>
-它的效果可参考[最上面的效果图片](https://github.com/wangjiegulu/RapidFloatingActionButton/tree/master/screenshot)或者[Google的Inbox](https://play.google.com/store/apps/details?id=com.google.android.apps.inbox)的效果。</br>
-除此之外，你还需要使用`RapidFloatingActionButtonHelper`来把以上所有零散的组件组合起来。
+RFAB also needs an implementation of `RapidFloatingActionContent` to fill and assign content of RFAB when it expands.</br>
+Here is a quick solution of `RapidFloatingActionContent`:`RapidFloatingActionContentLabelList`.You can add some items（RFACLabelItem，of course not recommended to add too many items），and config color, drawable, shadow, background image, text size, color of label and animation of each item.</br>
+To preview the demo: [The top picture effects](https://github.com/wangjiegulu/RapidFloatingActionButton/tree/master/screenshot) or [Inbox of Google](https://play.google.com/store/apps/details?id=com.google.android.apps.inbox).</br>
+At last，you need combine them by `RapidFloatingActionButtonHelper`.
 
-#关于扩展：
-如果你不喜欢默认提供的`RapidFloatingActionContentLabelList`，理论上你可以扩展自己的内容样式。方法是继承`com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent`，然后初始化内容布局和样式，并调用父类的`setRootView(xxx);`方法即可。如果你需要增加动画，可以重写如下方法：</br>
+#About expand style：
+If you don't like `RapidFloatingActionContentLabelList`，you can expand your content style. Extend `com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent`, initialize the content layout and style，and invoke `setRootView(xxx);` method. If you want to add more animations，override those methods：</br>
 ```
 public void onExpandAnimator(AnimatorSet animatorSet);
 public void onCollapseAnimator(AnimatorSet animatorSet);
 ```
-把需要的Animator增加到animatorSet中即可</br>
-`另外，作者也会不定期增加更多的RapidFloatingActionContent的扩展`
+add your animations to the animatorSet.</br>
 
 
 
