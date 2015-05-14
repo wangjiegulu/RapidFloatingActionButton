@@ -13,7 +13,7 @@ Dependencies：</br>
 
 ### Gradle:
 ```
-complie 'com.github.wangjiegulu:RapidFloatingActionButton:1.0.1'
+compile 'com.github.wangjiegulu:RapidFloatingActionButton:1.0.1'
 ```
 ### Maven:
 ```
