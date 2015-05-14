@@ -22,7 +22,7 @@ import java.util.List;
  * Date: 5/4/15.
  */
 @AILayout(R.layout.rfab_group_sample_fragment_c)
-public class FragmentC extends BaseFragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentListener {
+public class FragmentC extends BaseFragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
     @AIView(R.id.rfab_group_sample_fragment_c_rfal)
     private RapidFloatingActionLayout rfaLayout;
@@ -76,7 +76,7 @@ public class FragmentC extends BaseFragment implements RapidFloatingActionConten
 
 
         RapidFloatingActionContentLabelList rfaContent = new RapidFloatingActionContentLabelList(context);
-        rfaContent.setOnRapidFloatingActionContentListener(this);
+        rfaContent.setOnRapidFloatingActionContentLabelListListener(this);
         List<RFACLabelItem> items = new ArrayList<>();
         items.add(new RFACLabelItem<Integer>()
                         .setLabel("Github: wangjiegulu")

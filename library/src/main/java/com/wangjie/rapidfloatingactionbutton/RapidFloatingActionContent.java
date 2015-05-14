@@ -19,30 +19,43 @@ import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListe
 public abstract class RapidFloatingActionContent extends FrameLayout {
     public RapidFloatingActionContent(Context context) {
         super(context);
-        initAfterConstructor();
+        initInConstructor();
     }
 
     public RapidFloatingActionContent(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initAfterConstructor();
+        initInConstructor();
     }
 
     public RapidFloatingActionContent(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initAfterConstructor();
+        initInConstructor();
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RapidFloatingActionContent(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
-        initAfterConstructor();
+        initInConstructor();
     }
 
-    protected void initAfterConstructor() {
+    /**
+     * 构造方法结束时回调
+     */
+    protected void initInConstructor() {
 
     }
 
-    protected void initAfterRFABHelperBuild(){
+    /**
+     * 设置完毕setContentView后回调
+     *
+     * @param rootView
+     */
+    protected abstract void initialContentViews(View rootView);
+
+    /**
+     * 当构建了RFAH后回调
+     */
+    protected void initAfterRFABHelperBuild() {
 
     }
 
@@ -70,7 +83,6 @@ public abstract class RapidFloatingActionContent extends FrameLayout {
         return setRootView(LayoutInflater.from(getContext()).inflate(rootViewResId, null));
     }
 
-    protected abstract void initialContentViews(View rootView);
 
     public void onExpandAnimator(AnimatorSet animatorSet) {
     }

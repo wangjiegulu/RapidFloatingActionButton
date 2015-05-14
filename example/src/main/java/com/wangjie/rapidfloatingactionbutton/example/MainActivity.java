@@ -18,7 +18,8 @@ public class MainActivity extends AIActionBarActivity {
     }
 
     @Override
-    @AIClick({R.id.activity_main_separate_rfab_sample_btn, R.id.activity_main_label_list_sample_btn, R.id.activity_main_rfab_group_btn})
+    @AIClick({R.id.activity_main_separate_rfab_sample_btn, R.id.activity_main_label_list_sample_btn,
+            R.id.activity_main_rfab_group_btn})
     public void onClickCallbackSample(View view) {
         switch (view.getId()) {
             case R.id.activity_main_label_list_sample_btn:

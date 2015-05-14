@@ -22,7 +22,7 @@ import java.util.List;
  * Date: 5/4/15.
  */
 @AILayout(R.layout.label_list_sample)
-public class LabelListSampleActivity extends AIActionBarActivity implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentListener {
+public class LabelListSampleActivity extends AIActionBarActivity implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
     @AIView(R.id.label_list_sample_rfal)
     private RapidFloatingActionLayout rfaLayout;
     @AIView(R.id.label_list_sample_rfab)
@@ -48,9 +48,8 @@ public class LabelListSampleActivity extends AIActionBarActivity implements Rapi
         rfaButton.build();
         */
 
-
         RapidFloatingActionContentLabelList rfaContent = new RapidFloatingActionContentLabelList(context);
-        rfaContent.setOnRapidFloatingActionContentListener(this);
+        rfaContent.setOnRapidFloatingActionContentLabelListListener(this);
         List<RFACLabelItem> items = new ArrayList<>();
         items.add(new RFACLabelItem<Integer>()
                         .setLabel("Github: wangjiegulu")
@@ -61,7 +60,8 @@ public class LabelListSampleActivity extends AIActionBarActivity implements Rapi
         );
         items.add(new RFACLabelItem<Integer>()
                         .setLabel("tiantian.china.2@gmail.com")
-                        .setResId(R.mipmap.ico_test_c)
+//                        .setResId(R.mipmap.ico_test_c)
+                        .setDrawable(getResources().getDrawable(R.mipmap.ico_test_c))
                         .setIconNormalColor(0xff4e342e)
                         .setIconPressedColor(0xff3e2723)
                         .setLabelColor(Color.WHITE)

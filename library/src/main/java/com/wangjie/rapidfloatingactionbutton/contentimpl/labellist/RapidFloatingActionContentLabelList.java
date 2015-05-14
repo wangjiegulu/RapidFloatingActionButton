@@ -33,16 +33,16 @@ import java.util.List;
  * Date: 4/29/15.
  */
 public class RapidFloatingActionContentLabelList extends RapidFloatingActionContent implements View.OnClickListener {
-    public interface OnRapidFloatingActionContentListener<T> {
+    public interface OnRapidFloatingActionContentLabelListListener<T> {
         void onRFACItemLabelClick(int position, RFACLabelItem<T> item);
 
         void onRFACItemIconClick(int position, RFACLabelItem<T> item);
     }
 
-    private OnRapidFloatingActionContentListener onRapidFloatingActionContentListener;
+    private OnRapidFloatingActionContentLabelListListener onRapidFloatingActionContentLabelListListener;
 
-    public void setOnRapidFloatingActionContentListener(OnRapidFloatingActionContentListener onRapidFloatingActionContentListener) {
-        this.onRapidFloatingActionContentListener = onRapidFloatingActionContentListener;
+    public void setOnRapidFloatingActionContentLabelListListener(OnRapidFloatingActionContentLabelListListener onRapidFloatingActionContentLabelListListener) {
+        this.onRapidFloatingActionContentLabelListListener = onRapidFloatingActionContentLabelListListener;
     }
 
     public RapidFloatingActionContentLabelList(Context context) {
@@ -71,7 +71,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
     private int iconShadowDy;
 
     @Override
-    protected void initAfterConstructor() {
+    protected void initInConstructor() {
         rfacItemDrawableSizePx = ABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAC_ITEM_DRAWABLE_SIZE_DP);
 
         contentView = new LinearLayout(getContext());
@@ -185,19 +185,16 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
                 }
 
             }
-            int resId = item.getResId();
-            if (resId > 0) {
+
+            int resId;
+            Drawable drawable = item.getDrawable();
+            if (null != drawable) {
                 iconIv.setVisibility(VISIBLE);
-                iconIv.setImageResource(resId);
-                item.setDrawable(ABImageProcess.getResourceDrawableBounded(getContext(), resId, rfacItemDrawableSizePx));
-
-                Drawable drawable = item.getDrawable();
-                if (null == drawable) {
-                    drawable = ABImageProcess.getResourceDrawableBounded(getContext(), resId, rfacItemDrawableSizePx);
-                    item.setDrawable(drawable);
-                }
+                drawable.setBounds(0, 0, rfacItemDrawableSizePx, rfacItemDrawableSizePx);
                 iconIv.setImageDrawable(drawable);
-
+            } else if ((resId = item.getResId()) > 0) {
+                iconIv.setVisibility(VISIBLE);
+                iconIv.setImageDrawable(ABImageProcess.getResourceDrawableBounded(getContext(), resId, rfacItemDrawableSizePx));
             } else {
                 iconIv.setVisibility(GONE);
             }
@@ -215,16 +212,16 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
     @Override
     public void onClick(View v) {
         Integer position;
-        if (null == onRapidFloatingActionContentListener
+        if (null == onRapidFloatingActionContentLabelListListener
                 ||
                 null == (position = (Integer) v.getTag(R.id.rfab__id_content_label_list_item_position))) {
             return;
         }
         int i = v.getId();
         if (i == R.id.rfab__content_label_list_label_tv) {
-            onRapidFloatingActionContentListener.onRFACItemLabelClick(position, items.get(position));
+            onRapidFloatingActionContentLabelListListener.onRFACItemLabelClick(position, items.get(position));
         } else if (i == R.id.rfab__content_label_list_icon_iv) {
-            onRapidFloatingActionContentListener.onRFACItemIconClick(position, items.get(position));
+            onRapidFloatingActionContentLabelListListener.onRFACItemIconClick(position, items.get(position));
         } else if (i == R.id.rfab__content_label_list_root_view) {
             onRapidFloatingActionListener.collapseContent();
         }

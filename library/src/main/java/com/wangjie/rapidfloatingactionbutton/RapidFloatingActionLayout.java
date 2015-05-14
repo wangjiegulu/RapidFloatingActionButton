@@ -81,6 +81,25 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
 
     private int frameColor;
     private float frameAlpha;
+    /**
+     * 展开的内容RFAC是否显示在RFAB上方，否则就覆盖在RFAB上面，默认true
+     */
+    private boolean isContentAboveLayout = true;
+
+    public void setIsContentAboveLayout(boolean isContentAboveLayout) {
+        this.isContentAboveLayout = isContentAboveLayout;
+    }
+    public boolean isContentAboveLayout() {
+        return isContentAboveLayout;
+    }
+
+    /**
+     * 是否禁止contentView展开和收缩的默认动画（如果禁用，可以自己实现自定义动画）
+     */
+    private boolean disableContentDefaultAnimation = false;
+    public void setDisableContentDefaultAnimation(boolean disableContentDefaultAnimation) {
+        this.disableContentDefaultAnimation = disableContentDefaultAnimation;
+    }
 
     public RapidFloatingActionLayout setContentView(RapidFloatingActionContent contentView) {
         if (null == contentView) {
@@ -104,6 +123,11 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.addRule(RelativeLayout.ABOVE, onRapidFloatingActionListener.obtainRFAButton().getId());
         lp.addRule(RelativeLayout.ALIGN_RIGHT, onRapidFloatingActionListener.obtainRFAButton().getId());
+
+        if (!isContentAboveLayout && null != onRapidFloatingActionListener) {
+            lp.bottomMargin = -onRapidFloatingActionListener.obtainRFAButton().getRfabProperties().getRealSizePx(getContext());
+        }
+
         this.contentView.setLayoutParams(lp);
         this.contentView.setVisibility(GONE);
         this.addView(this.contentView);
@@ -119,7 +143,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
 
     public void setFrameColor(int frameColor) {
         this.frameColor = frameColor;
-        if(null != fillFrameView){
+        if (null != fillFrameView) {
             fillFrameView.setBackgroundColor(frameColor);
         }
     }
@@ -150,16 +174,20 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         }
         endAnimatorSet();
         isExpanded = true;
-        contentAnimator.setTarget(this.contentView);
-        contentAnimator.setFloatValues(0.0f, 1.0f);
-        contentAnimator.setPropertyName("alpha");
 
         fillFrameAnimator.setTarget(this.fillFrameView);
         fillFrameAnimator.setFloatValues(0.0f, frameAlpha);
         fillFrameAnimator.setPropertyName("alpha");
 
         animatorSet = new AnimatorSet();
-        animatorSet.playTogether(contentAnimator, fillFrameAnimator);
+        if(disableContentDefaultAnimation){
+            animatorSet.playTogether(fillFrameAnimator);
+        }else{
+            contentAnimator.setTarget(this.contentView);
+            contentAnimator.setFloatValues(0.0f, 1.0f);
+            contentAnimator.setPropertyName("alpha");
+            animatorSet.playTogether(contentAnimator, fillFrameAnimator);
+        }
         animatorSet.setDuration(ANIMATION_DURATION);
         animatorSet.setInterpolator(mAccelerateInterpolator);
         onRapidFloatingActionListener.onExpandAnimator(animatorSet);
@@ -189,16 +217,20 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         }
         endAnimatorSet();
         isExpanded = false;
-        contentAnimator.setTarget(this.contentView);
-        contentAnimator.setFloatValues(1.0f, 0.0f);
-        contentAnimator.setPropertyName("alpha");
 
         fillFrameAnimator.setTarget(this.fillFrameView);
         fillFrameAnimator.setFloatValues(frameAlpha, 0.0f);
         fillFrameAnimator.setPropertyName("alpha");
 
         animatorSet = new AnimatorSet();
-        animatorSet.playTogether(contentAnimator, fillFrameAnimator);
+        if(disableContentDefaultAnimation){
+            animatorSet.playTogether(fillFrameAnimator);
+        }else{
+            contentAnimator.setTarget(this.contentView);
+            contentAnimator.setFloatValues(1.0f, 0.0f);
+            contentAnimator.setPropertyName("alpha");
+            animatorSet.playTogether(contentAnimator, fillFrameAnimator);
+        }
         animatorSet.setDuration(ANIMATION_DURATION);
         animatorSet.setInterpolator(mAccelerateInterpolator);
         onRapidFloatingActionListener.onCollapseAnimator(animatorSet);
@@ -233,5 +265,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
     private ObjectAnimator fillFrameAnimator = new ObjectAnimator();
     private AccelerateInterpolator mAccelerateInterpolator = new AccelerateInterpolator();
 
-
+    public RapidFloatingActionContent getContentView() {
+        return contentView;
+    }
 }
