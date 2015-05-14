@@ -10,6 +10,20 @@ Dependencies：</br>
 [AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：The base library</br>
 [AndroidInject](https://github.com/wangjiegulu/androidInject)：The Inject library</br>
 [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：The Property Animation library for pre android 3.0</br>
+
+### Gradle:
+```
+complie 'com.github.wangjiegulu:RapidFloatingActionButton:1.0.1'
+```
+### Maven:
+```
+<dependency>
+    <groupId>com.github.wangjiegulu</groupId>
+    <artifactId>RapidFloatingActionButton</artifactId>
+    <version>1.0.1</version>
+</dependency>
+```
+
 ## activity_main.xml：
 ```
 <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
