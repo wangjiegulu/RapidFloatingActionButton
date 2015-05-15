@@ -1,20 +1,24 @@
 package com.wangjie.rapidfloatingactionbutton.widget;
 
+import android.annotation.TargetApi;
+import android.content.Context;
 import android.graphics.*;
-import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
+import com.wangjie.androidbucket.utils.ABFileUtil;
 import com.wangjie.androidbucket.utils.ABIOUtil;
 
 /**
  * Author: wangjie
  * Email: tiantian.china.2@gmail.com
- * Date: 5/7/15.
+ * Date: 5/15/15.
  */
-public class ViewAnimationDrawable extends Drawable {
+public class AnimationView extends View {
 
     public interface OnViewAnimationDrawableListener {
         void onAnimationDrawableOpenEnd();
@@ -26,13 +30,50 @@ public class ViewAnimationDrawable extends Drawable {
         void onAnimationDrawableCloseStart();
     }
 
-    private static final int DURATION_DEFAULT = 300/*ms*/;
-    private View view;
-
     private OnViewAnimationDrawableListener onViewAnimationDrawableListener;
 
     public void setOnViewAnimationDrawableListener(OnViewAnimationDrawableListener onViewAnimationDrawableListener) {
         this.onViewAnimationDrawableListener = onViewAnimationDrawableListener;
+    }
+
+
+    public AnimationView(Context context) {
+        super(context);
+        init();
+    }
+
+    public AnimationView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public AnimationView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public AnimationView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
+        init();
+    }
+
+    private void init() {
+        this.setBackgroundColor(Color.TRANSPARENT);
+
+        paint = new Paint();
+        paint.setAntiAlias(true);
+        paint.setColor(Color.GRAY);
+
+        animator.addUpdateListener(animatorUpdateListener);
+        animator.setInterpolator(new DecelerateInterpolator());
+    }
+
+    private static final int DURATION_DEFAULT = 300/*ms*/;
+    private View drawView;
+
+    public void setDrawView(View drawView) {
+        this.drawView = drawView;
     }
 
     private int width;
@@ -48,44 +89,41 @@ public class ViewAnimationDrawable extends Drawable {
 
     private PorterDuffXfermode mProPorterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
 
-    public ViewAnimationDrawable(View view) {
-        this.view = view;
-        paint = new Paint();
-        paint.setAntiAlias(true);
-        paint.setColor(Color.GRAY);
-
-        animator.addUpdateListener(animatorUpdateListener);
-        animator.setInterpolator(new DecelerateInterpolator());
-
-    }
 
     @Override
-    public void setBounds(int left, int top, int right, int bottom) {
-        if(width <= 0 && height <= 0){
-            super.setBounds(left, top, right, bottom);
-        }
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
     }
 
-    @Override
-    protected void onBoundsChange(Rect bounds) {
-        super.onBoundsChange(bounds);
-        if ((width = bounds.right - bounds.left) > 0 && (height = bounds.bottom - bounds.top) > 0) {
-            radius = (int) Math.sqrt((width * width + height * height));
-            currentRadius = radius;
-
-            if (null == viewBitmap) {
-//                Bitmap bm = convertViewToBitmap(view);
+//    public void initialDraw() {
+//        width = this.getMeasuredWidth();
+//        height = this.getMeasuredHeight();
+//        radius = (int) Math.sqrt((width * width + height * height));
+//        currentRadius = radius;
+//
+//        if (null == viewBitmap) {
+//                Bitmap bm = convertViewToBitmap(drawView);
 //                viewBitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight());
-                viewBitmap = convertViewToBitmapWithDraw(view, width, height);
-//                ABFileUtil.saveBitmap2SD("", "hello2.jpg", viewBitmap);
-            }
-
-            invalidateSelf();
-        }
-    }
+////            viewBitmap = convertViewToBitmapWithDraw(drawView, width, height);
+//            ABFileUtil.saveBitmap2SD("", "hello4.jpg", viewBitmap);
+//        }
+//
+//        invalidate();
+//    }
 
     @Override
     public void draw(Canvas canvas) {
+        if (null == viewBitmap) {
+            width = this.getMeasuredWidth();
+            height = this.getMeasuredHeight();
+            radius = (int) Math.sqrt((width * width + height * height));
+            currentRadius = radius;
+
+            Bitmap bm = convertViewToBitmap(drawView);
+            viewBitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight());
+//            viewBitmap = convertViewToBitmapWithDraw(drawView, width, height);
+            ABFileUtil.saveBitmap2SD("", "hello4.jpg", viewBitmap);
+        }
 
         canvas.drawColor(Color.TRANSPARENT);
         paint.setXfermode(null);
@@ -93,21 +131,6 @@ public class ViewAnimationDrawable extends Drawable {
 //        canvas.drawCircle(width, height, radius / 2, paint);
         paint.setXfermode(mProPorterDuffXfermode);
         canvas.drawBitmap(viewBitmap, 0, 0, paint);
-    }
-
-    @Override
-    public void setAlpha(int alpha) {
-
-    }
-
-    @Override
-    public void setColorFilter(ColorFilter cf) {
-
-    }
-
-    @Override
-    public int getOpacity() {
-        return 0;
     }
 
     public void startOpenAnimation() {
@@ -154,7 +177,7 @@ public class ViewAnimationDrawable extends Drawable {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
             currentRadius = (int) animation.getAnimatedValue();
-            invalidateSelf();
+            invalidate();
         }
     };
 
@@ -198,11 +221,11 @@ public class ViewAnimationDrawable extends Drawable {
     }
 
 
-    public static Bitmap convertViewToBitmap(View view) {
+    public Bitmap convertViewToBitmap(View view) {
 //        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-//        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-//        view.setDrawingCacheEnabled(true);
-        view.buildDrawingCache();
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        view.setDrawingCacheEnabled(true);
+//        view.buildDrawingCache();
         return view.getDrawingCache();
     }
 
@@ -211,5 +234,4 @@ public class ViewAnimationDrawable extends Drawable {
         view.draw(new Canvas(viewBitmap));
         return viewBitmap;
     }
-
 }

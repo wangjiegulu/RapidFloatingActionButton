@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListener;
 
@@ -73,7 +74,7 @@ public abstract class RapidFloatingActionContent extends FrameLayout {
         }
         this.rootView = rootView;
         this.removeAllViews();
-        this.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        this.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         this.addView(this.rootView);
         initialContentViews(this.rootView);
         return this;
