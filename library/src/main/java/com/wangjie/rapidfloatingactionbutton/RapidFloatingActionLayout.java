@@ -121,8 +121,9 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
 
         // 添加内容
         LayoutParams lp = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        lp.addRule(RelativeLayout.ABOVE, onRapidFloatingActionListener.obtainRFAButton().getId());
-        lp.addRule(RelativeLayout.ALIGN_RIGHT, onRapidFloatingActionListener.obtainRFAButton().getId());
+        int rfabId = onRapidFloatingActionListener.obtainRFAButton().getId();
+        lp.addRule(RelativeLayout.ABOVE, rfabId);
+        lp.addRule(RelativeLayout.ALIGN_RIGHT, rfabId);
 
         if (!isContentAboveLayout && null != onRapidFloatingActionListener) {
             lp.bottomMargin = -onRapidFloatingActionListener.obtainRFAButton().getRfabProperties().getRealSizePx(getContext());

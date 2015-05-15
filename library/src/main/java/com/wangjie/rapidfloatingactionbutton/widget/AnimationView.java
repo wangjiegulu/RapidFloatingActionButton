@@ -10,7 +10,6 @@ import android.view.animation.DecelerateInterpolator;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
-import com.wangjie.androidbucket.utils.ABFileUtil;
 import com.wangjie.androidbucket.utils.ABIOUtil;
 
 /**
@@ -19,6 +18,8 @@ import com.wangjie.androidbucket.utils.ABIOUtil;
  * Date: 5/15/15.
  */
 public class AnimationView extends View {
+
+    private static final String TAG = AnimationView.class.getSimpleName();
 
     public interface OnViewAnimationDrawableListener {
         void onAnimationDrawableOpenEnd();
@@ -58,6 +59,10 @@ public class AnimationView extends View {
         init();
     }
 
+
+    private DecelerateInterpolator openInterpolator = new DecelerateInterpolator(0.6f);
+    private DecelerateInterpolator closeInterpolator = new DecelerateInterpolator(1.8f);
+
     private void init() {
         this.setBackgroundColor(Color.TRANSPARENT);
 
@@ -66,7 +71,8 @@ public class AnimationView extends View {
         paint.setColor(Color.GRAY);
 
         animator.addUpdateListener(animatorUpdateListener);
-        animator.setInterpolator(new DecelerateInterpolator());
+//        animator.setInterpolator(new DecelerateInterpolator(1.5f));
+
     }
 
     private static final int DURATION_DEFAULT = 300/*ms*/;
@@ -89,48 +95,46 @@ public class AnimationView extends View {
 
     private PorterDuffXfermode mProPorterDuffXfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_IN);
 
+    private int minRadius = 0;
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
+    public void setMinRadius(int minRadius) {
+        this.minRadius = minRadius;
     }
 
-//    public void initialDraw() {
-//        width = this.getMeasuredWidth();
-//        height = this.getMeasuredHeight();
-//        radius = (int) Math.sqrt((width * width + height * height));
-//        currentRadius = radius;
-//
-//        if (null == viewBitmap) {
-//                Bitmap bm = convertViewToBitmap(drawView);
-//                viewBitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight());
-////            viewBitmap = convertViewToBitmapWithDraw(drawView, width, height);
+    public void initialDraw() {
+        width = this.getMeasuredWidth();
+        height = this.getMeasuredHeight();
+        radius = (int) Math.sqrt((width * width + height * height));
+        currentRadius = radius;
+
+        generateViewBitmap();
+
+        invalidate();
+    }
+
+    private void generateViewBitmap() {
+        if (null == viewBitmap) {
+            Bitmap bm = convertViewToBitmap(drawView);
+            if (null == bm) {
+                return;
+            }
+            viewBitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight());
+//            viewBitmap = convertViewToBitmapWithDraw(drawView, width, height);
 //            ABFileUtil.saveBitmap2SD("", "hello4.jpg", viewBitmap);
-//        }
-//
-//        invalidate();
-//    }
+        }
+    }
 
     @Override
     public void draw(Canvas canvas) {
-        if (null == viewBitmap) {
-            width = this.getMeasuredWidth();
-            height = this.getMeasuredHeight();
-            radius = (int) Math.sqrt((width * width + height * height));
-            currentRadius = radius;
-
-            Bitmap bm = convertViewToBitmap(drawView);
-            viewBitmap = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight());
-//            viewBitmap = convertViewToBitmapWithDraw(drawView, width, height);
-            ABFileUtil.saveBitmap2SD("", "hello4.jpg", viewBitmap);
-        }
+        generateViewBitmap();
 
         canvas.drawColor(Color.TRANSPARENT);
         paint.setXfermode(null);
-        canvas.drawCircle(width, height, currentRadius, paint);
-//        canvas.drawCircle(width, height, radius / 2, paint);
+        canvas.drawCircle(width - minRadius, height - minRadius, currentRadius, paint);
         paint.setXfermode(mProPorterDuffXfermode);
-        canvas.drawBitmap(viewBitmap, 0, 0, paint);
+        if (null != viewBitmap) {
+            canvas.drawBitmap(viewBitmap, 0, 0, paint);
+        }
     }
 
     public void startOpenAnimation() {
@@ -155,9 +159,11 @@ public class AnimationView extends View {
 
     public ValueAnimator getOpenAnimator(long duration) {
         animator.removeAllListeners();
-        animator.setIntValues(0, radius);
+        animator.setIntValues(minRadius, radius);
         animator.setDuration(duration);
         animator.addListener(openAnimatorListenerAdapter);
+        animator.setInterpolator(openInterpolator);
+
         return animator;
     }
 
@@ -167,9 +173,11 @@ public class AnimationView extends View {
 
     public ValueAnimator getCloseAnimator(long duration) {
         animator.removeAllListeners();
-        animator.setIntValues(radius, 0);
+        animator.setIntValues(radius, minRadius);
         animator.setDuration(duration);
         animator.addListener(closeAnimatorListenerAdapter);
+        animator.setInterpolator(closeInterpolator);
+
         return animator;
     }
 
@@ -193,6 +201,7 @@ public class AnimationView extends View {
         @Override
         public void onAnimationEnd(Animator animation) {
             super.onAnimationEnd(animation);
+            AnimationView.this.clearAnimation();
             if (null != onViewAnimationDrawableListener) {
                 onViewAnimationDrawableListener.onAnimationDrawableOpenEnd();
             }
@@ -210,6 +219,7 @@ public class AnimationView extends View {
         @Override
         public void onAnimationEnd(Animator animation) {
             super.onAnimationEnd(animation);
+            AnimationView.this.clearAnimation();
             if (null != onViewAnimationDrawableListener) {
                 onViewAnimationDrawableListener.onAnimationDrawableCloseEnd();
             }
@@ -233,5 +243,11 @@ public class AnimationView extends View {
         Bitmap viewBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         view.draw(new Canvas(viewBitmap));
         return viewBitmap;
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        recycle();
     }
 }

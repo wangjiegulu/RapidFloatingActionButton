@@ -7,8 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import com.nineoldandroids.animation.AnimatorSet;
-import com.wangjie.androidbucket.log.Logger;
-import com.wangjie.androidbucket.utils.ABTextUtil;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent;
 import com.wangjie.rapidfloatingactionbutton.util.ViewUtil;
 import com.wangjie.rapidfloatingactionbutton.widget.AnimationView;
@@ -39,58 +37,35 @@ public abstract class RapidFloatingActionContentViewBase extends RapidFloatingAc
     }
 
     private View realContentView;
-//    private ImageView animationIv;
     private AnimationView mAnimationView;
 
+
+    @NonNull
+    protected abstract View getContentView();
+
     @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        Logger.d(TAG, "onAttachedToWindow");
+    protected void initAfterRFABHelperBuild() {
         realContentView = getContentView();
         FrameLayout view = new FrameLayout(getContext());
         view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         realContentView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         view.addView(realContentView);
 
-//        animationIv = new ImageView(getContext());
         mAnimationView = new AnimationView(getContext());
         ViewUtil.typeSoftWare(mAnimationView);
-//        mAnimationView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mAnimationView.setLayoutParams(new FrameLayout.LayoutParams(ABTextUtil.dip2px(getContext(), 150), ABTextUtil.dip2px(getContext(), 200)));
+        mAnimationView.setLayoutParams(realContentView.getLayoutParams());
         mAnimationView.setDrawView(realContentView);
         mAnimationView.setOnViewAnimationDrawableListener(this);
         view.addView(mAnimationView);
 
         setRootView(view);
 
-//        this.setMeasureAllChildren(true);
-//        measureAll();
-
-//        mAnimationView.initialDraw();
-
-//        animationIv.setImageDrawable(mAnimationView);
-//        animationIv.setBackground(mAnimationView);
-    }
-
-    @Override
-    public void onScreenStateChanged(int screenState) {
-        super.onScreenStateChanged(screenState);
-        Logger.d(TAG, "onScreenStateChanged");
-    }
-
-    @Override
-    protected void initInConstructor() {
-
-
-    }
-
-    @NonNull
-    protected abstract View getContentView();
-
-    protected abstract void measureAll();
-
-    @Override
-    protected void initAfterRFABHelperBuild() {
+        this.setMeasureAllChildren(true);
+//        this.measure(this.getMeasuredWidth(), this.getMeasuredHeight());
+        this.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+        mAnimationView.setLayoutParams(new FrameLayout.LayoutParams(this.getMeasuredWidth(), this.getMeasuredHeight()));
+        mAnimationView.setMinRadius(onRapidFloatingActionListener.obtainRFAButton().getRfabProperties().getRealSizePx(getContext()) / 2);
+        mAnimationView.initialDraw();
 
     }
 

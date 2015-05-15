@@ -15,7 +15,7 @@ import com.wangjie.rapidfloatingactionbutton.example.R;
  * Date: 5/6/15.
  */
 @AILayout(R.layout.card_list_sample)
-public class CardListSampleActivity extends AIActionBarActivity {
+public class CardListSampleActivity extends AIActionBarActivity implements RapidFloatingActionContentCardListView.OnRapidFloatingActionContentCardListViewListener {
 
     @AIView(R.id.card_list_sample_rfal)
     private RapidFloatingActionLayout rfaLayout;
@@ -27,7 +27,8 @@ public class CardListSampleActivity extends AIActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        RapidFloatingActionContentCardView rfaContent = new RapidFloatingActionContentCardView(context);
+        RapidFloatingActionContentCardListView rfaContent = new RapidFloatingActionContentCardListView(context);
+        rfaContent.setOnRapidFloatingActionContentCardListViewListener(this);
         rfaLayout.setIsContentAboveLayout(false);
         rfaLayout.setDisableContentDefaultAnimation(true);
 
@@ -42,4 +43,9 @@ public class CardListSampleActivity extends AIActionBarActivity {
     }
 
 
+    @Override
+    public void onRFACItemClick(int position) {
+        showToastMessage("clicked " + position);
+        rfabHelper.toggleContent();
+    }
 }
