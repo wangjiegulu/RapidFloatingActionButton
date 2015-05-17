@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:orientation="vertical"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+
+    <com.wangjie.androidbucket.support.cardview.CardView
+            xmlns:cv="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_list_sample_test_cv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            cv:shadowSize="2dp"
+            cv:cardCornerRadius="0dp"
+            >
+        <ListView
+                android:id="@+id/content_card_list_content_lv"
+                android:layout_width="200dp"
+                android:layout_height="300dp"
+                />
+    </com.wangjie.androidbucket.support.cardview.CardView>
+
+
+</FrameLayout>

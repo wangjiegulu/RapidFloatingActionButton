@@ -6,18 +6,19 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent;
 import com.wangjie.rapidfloatingactionbutton.util.ViewUtil;
-import com.wangjie.rapidfloatingactionbutton.widget.ViewAnimationDrawable;
+import com.wangjie.rapidfloatingactionbutton.widget.AnimationView;
 
 /**
  * Author: wangjie
  * Email: tiantian.china.2@gmail.com
  * Date: 4/29/15.
  */
-public abstract class RapidFloatingActionContentViewBase extends RapidFloatingActionContent implements ViewAnimationDrawable.OnViewAnimationDrawableListener {
+public abstract class RapidFloatingActionContentViewBase extends RapidFloatingActionContent implements AnimationView.OnViewAnimationDrawableListener {
+
+    private static final String TAG = RapidFloatingActionContentViewBase.class.getSimpleName();
 
     public RapidFloatingActionContentViewBase(Context context) {
         super(context);
@@ -36,42 +37,35 @@ public abstract class RapidFloatingActionContentViewBase extends RapidFloatingAc
     }
 
     private View realContentView;
-    private ImageView animationIv;
-    private ViewAnimationDrawable mViewAnimationDrawable;
+    private AnimationView mAnimationView;
+
+
+    @NonNull
+    protected abstract View getContentView();
 
     @Override
-    protected void initInConstructor() {
+    protected void initAfterRFABHelperBuild() {
         realContentView = getContentView();
         FrameLayout view = new FrameLayout(getContext());
         view.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         realContentView.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         view.addView(realContentView);
 
-        animationIv = new ImageView(getContext());
-        ViewUtil.typeSoftWare(animationIv);
-        animationIv.setLayoutParams(new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        view.addView(animationIv, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        mAnimationView = new AnimationView(getContext());
+        ViewUtil.typeSoftWare(mAnimationView);
+        mAnimationView.setLayoutParams(realContentView.getLayoutParams());
+        mAnimationView.setDrawView(realContentView);
+        mAnimationView.setOnViewAnimationDrawableListener(this);
+        view.addView(mAnimationView);
 
         setRootView(view);
 
         this.setMeasureAllChildren(true);
-        measureAll();
-
-        mViewAnimationDrawable = new ViewAnimationDrawable(realContentView);
-        mViewAnimationDrawable.setOnViewAnimationDrawableListener(this);
-        animationIv.setImageDrawable(mViewAnimationDrawable);
-        mViewAnimationDrawable.setBounds(0, 0, realContentView.getMeasuredWidth(), realContentView.getMeasuredHeight());
-//        animationIv.setBackground(mViewAnimationDrawable);
-
-    }
-
-    @NonNull
-    protected abstract View getContentView();
-
-    protected abstract void measureAll();
-
-    @Override
-    protected void initAfterRFABHelperBuild() {
+//        this.measure(this.getMeasuredWidth(), this.getMeasuredHeight());
+        this.measure(MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED), MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
+        mAnimationView.setLayoutParams(new FrameLayout.LayoutParams(this.getMeasuredWidth(), this.getMeasuredHeight()));
+        mAnimationView.setMinRadius(onRapidFloatingActionListener.obtainRFAButton().getRfabProperties().getRealSizePx(getContext()) / 2);
+        mAnimationView.initialDraw();
 
     }
 
@@ -82,25 +76,25 @@ public abstract class RapidFloatingActionContentViewBase extends RapidFloatingAc
     @Override
     public void onAnimationDrawableOpenStart() {
         realContentView.setVisibility(GONE);
-        animationIv.setVisibility(VISIBLE);
+        mAnimationView.setVisibility(VISIBLE);
     }
 
     @Override
     public void onAnimationDrawableOpenEnd() {
         realContentView.setVisibility(VISIBLE);
-        animationIv.setVisibility(GONE);
+        mAnimationView.setVisibility(GONE);
     }
 
     @Override
     public void onAnimationDrawableCloseStart() {
         realContentView.setVisibility(GONE);
-        animationIv.setVisibility(VISIBLE);
+        mAnimationView.setVisibility(VISIBLE);
     }
 
     @Override
     public void onAnimationDrawableCloseEnd() {
         realContentView.setVisibility(VISIBLE);
-        animationIv.setVisibility(GONE);
+        mAnimationView.setVisibility(GONE);
     }
 
 
@@ -109,15 +103,15 @@ public abstract class RapidFloatingActionContentViewBase extends RapidFloatingAc
      */
     @Override
     public void onExpandAnimator(AnimatorSet animatorSet) {
-        if (null != mViewAnimationDrawable) {
-            animatorSet.playTogether(mViewAnimationDrawable.getOpenAnimator());
+        if (null != mAnimationView) {
+            animatorSet.playTogether(mAnimationView.getOpenAnimator());
         }
     }
 
     @Override
     public void onCollapseAnimator(AnimatorSet animatorSet) {
-        if (null != mViewAnimationDrawable) {
-            animatorSet.playTogether(mViewAnimationDrawable.getCloseAnimator());
+        if (null != mAnimationView) {
+            animatorSet.playTogether(mAnimationView.getCloseAnimator());
         }
     }
 

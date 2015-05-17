@@ -20,6 +20,12 @@
             android:text="label list sample"
             />
     <Button
+            android:id="@+id/activity_main_card_list_sample_btn"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textAllCaps="false"
+            android:text="card list sample"
+            />
+    <Button
             android:id="@+id/activity_main_rfab_group_btn"
             android:layout_width="match_parent" android:layout_height="wrap_content"
             android:textAllCaps="false"
