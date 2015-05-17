@@ -7,11 +7,16 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.wangjie.androidbucket.utils.ABViewUtil;
 import com.wangjie.androidbucket.utils.imageprocess.ABShape;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.viewbase.RapidFloatingActionContentViewBase;
 import com.wangjie.rapidfloatingactionbutton.example.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: wangjie
@@ -20,7 +25,7 @@ import com.wangjie.rapidfloatingactionbutton.example.R;
  */
 public class RapidFloatingActionContentCardListView extends RapidFloatingActionContentViewBase implements View.OnClickListener {
     public interface OnRapidFloatingActionContentCardListViewListener {
-        void onRFACItemClick(int position);
+        void onRFACCardListItemClick(int position);
     }
 
     private OnRapidFloatingActionContentCardListViewListener onRapidFloatingActionContentCardListViewListener;
@@ -47,24 +52,32 @@ public class RapidFloatingActionContentCardListView extends RapidFloatingActionC
 
     private LinearLayout contentView;
 
-    int size = 4;
+    private List<CardItem> list = new ArrayList<>();
+
+    public void setList(List<CardItem> list) {
+        this.list.clear();
+        this.list.addAll(list);
+    }
 
     @NonNull
     @Override
     protected View getContentView() {
-
         contentView = new LinearLayout(getContext());
         contentView.setOrientation(LinearLayout.VERTICAL);
-//        contentView.setLayoutParams(new LayoutParams(ABTextUtil.dip2px(getContext(), 150), ABTextUtil.dip2px(getContext(), 50) * size));
 
         contentView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        for (int i = 0; i < size; i++) {
+        for (int i = 0, len = list.size(); i < len; i++) {
             View item = LayoutInflater.from(getContext()).inflate(R.layout.content_card_list_item, null);
             View rootView = item.findViewById(R.id.content_card_list_item_root_view);
             rootView.setTag(com.wangjie.rapidfloatingactionbutton.R.id.rfab__id_content_label_list_item_position, i);
             ABViewUtil.setBackgroundDrawable(rootView, ABShape.selectorClickColorCornerSimple(Color.WHITE, 0xffF0F0F0, 0));
             rootView.setOnClickListener(this);
-            // ...
+
+            ImageView logoIv = (ImageView) rootView.findViewById(R.id.content_card_list_item_logo_iv);
+            TextView titleTv = (TextView) rootView.findViewById(R.id.content_card_list_item_title_tv);
+            CardItem cardItem = list.get(i);
+            logoIv.setImageResource(cardItem.getResId());
+            titleTv.setText(cardItem.getName());
 
             contentView.addView(item);
         }
@@ -83,7 +96,7 @@ public class RapidFloatingActionContentCardListView extends RapidFloatingActionC
         }
         switch (v.getId()) {
             case R.id.content_card_list_item_root_view:
-                onRapidFloatingActionContentCardListViewListener.onRFACItemClick(position);
+                onRapidFloatingActionContentCardListViewListener.onRFACCardListItemClick(position);
                 break;
         }
     }

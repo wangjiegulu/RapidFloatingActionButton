@@ -19,7 +19,7 @@
                   android:lineSpacingMultiplier="1.3"
                   android:padding="30dp"
                   android:textSize="16sp"
-                  android:text="test"
+                  android:text="这是一个圆形展开效果的例子，你可以编写任意的View，继承RapidFloatingActionContentViewBase，然后实现getContentView()方法填充View即可。"
                 />
 
 

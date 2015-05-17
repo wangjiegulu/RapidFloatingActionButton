@@ -9,6 +9,9 @@ import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
 import com.wangjie.rapidfloatingactionbutton.example.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Author: wangjie
  * Email: tiantian.china.2@gmail.com
@@ -29,6 +32,15 @@ public class CardListSampleActivity extends AIActionBarActivity implements Rapid
 
         RapidFloatingActionContentCardListView rfaContent = new RapidFloatingActionContentCardListView(context);
         rfaContent.setOnRapidFloatingActionContentCardListViewListener(this);
+
+        List<CardItem> cardItems = new ArrayList<>();
+        cardItems.add(new CardItem().setName("wangjie").setResId(R.mipmap.head_test_a));
+        cardItems.add(new CardItem().setName("tiantian").setResId(R.mipmap.head_test_b));
+        cardItems.add(new CardItem().setName("wangjiegulu").setResId(R.mipmap.head_test_c));
+        cardItems.add(new CardItem().setName("咕噜不爱猫").setResId(R.mipmap.head_test_d));
+        rfaContent.setList(cardItems);
+
+
         rfaLayout.setIsContentAboveLayout(false);
         rfaLayout.setDisableContentDefaultAnimation(true);
 
@@ -44,7 +56,7 @@ public class CardListSampleActivity extends AIActionBarActivity implements Rapid
 
 
     @Override
-    public void onRFACItemClick(int position) {
+    public void onRFACCardListItemClick(int position) {
         showToastMessage("clicked " + position);
         rfabHelper.toggleContent();
     }
