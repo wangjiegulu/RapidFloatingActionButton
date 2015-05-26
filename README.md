@@ -10,6 +10,7 @@ Quick solutions for Floating Action Button，RapidFloatingActionButton（RFAB）
 Dependencies：</br>
 [AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：The base library</br>
 [AndroidInject](https://github.com/wangjiegulu/androidInject)：The Inject library</br>
+[ShadowViewHelper](https://github.com/wangjiegulu/ShadowViewHelper)：Shadow layout, shadow view for android</br>
 [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：The Property Animation library for pre android 3.0</br>
 
 ### Gradle:
