@@ -46,6 +46,8 @@ dependencies {
     compile 'com.github.wangjiegulu:AndroidBucket:1.0.2'
     compile 'com.github.wangjiegulu:AndroidInject:1.0.2'
 
+    compile 'com.github.wangjiegulu:ShadowViewHelper:1.0.0'
+
     compile project(':library')
 //    compile project(':AndroidBucket')
 //    compile project(':AndroidInject')

@@ -10,10 +10,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import com.wangjie.androidbucket.utils.ABTextUtil;
 import com.wangjie.androidbucket.utils.ABViewUtil;
 import com.wangjie.androidbucket.utils.imageprocess.ABShape;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.viewbase.RapidFloatingActionContentViewBase;
 import com.wangjie.rapidfloatingactionbutton.example.R;
+import com.wangjie.shadowviewhelper.ShadowProperty;
+import com.wangjie.shadowviewhelper.ShadowViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,6 +67,13 @@ public class RapidFloatingActionContentCardListView extends RapidFloatingActionC
     protected View getContentView() {
         contentView = new LinearLayout(getContext());
         contentView.setOrientation(LinearLayout.VERTICAL);
+        ShadowViewHelper.bindShadowHelper(
+                new ShadowProperty()
+                        .setShadowRadius(ABTextUtil.dip2px(getContext(), 4))
+                        .setShadowColor(0x66000000)
+                ,
+                contentView
+        );
 
         contentView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         for (int i = 0, len = list.size(); i < len; i++) {

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+        >
+
+    <Button
+            android:id="@+id/shadow_layout_change_text_btn"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="change text content"
+            />
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent"
+                      android:layout_height="match_parent"
+                      android:orientation="vertical"
+                >
+
+            <LinearLayout
+                    android:id="@+id/shadow_layout_view"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical"
+                    android:background="#cccccc"
+                    android:padding="8dp"
+                    >
+                <TextView
+                        android:id="@+id/shadow_layout_content_tv"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:text="hello world a!"
+                        />
+                <ImageView android:layout_width="match_parent" android:layout_height="wrap_content"
+                           android:src="@mipmap/ic_launcher"
+                        />
+            </LinearLayout>
+
+            <FrameLayout
+                    android:id="@+id/shadow_layout_view_b"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:orientation="vertical"
+                    android:background="#cccccc"
+                    android:padding="8dp"
+                    >
+                <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textSize="20sp"
+                        android:text="hello world b!"
+                        />
+                <ImageView android:layout_width="match_parent" android:layout_height="wrap_content"
+                           android:src="@mipmap/ic_launcher"
+                        />
+            </FrameLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
