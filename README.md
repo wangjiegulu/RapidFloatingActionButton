@@ -13,16 +13,16 @@ Dependencies：</br>
 [ShadowViewHelper](https://github.com/wangjiegulu/ShadowViewHelper)：Shadow layout, shadow view for android</br>
 [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：The Property Animation library for pre android 3.0</br>
 
-### Gradle:
+### Gradle([Check newest version](http://search.maven.org/#search%7Cga%7C1%7CRapidFloatingActionButton)):
 ```
-compile 'com.github.wangjiegulu:RapidFloatingActionButton:1.0.1'
+compile 'com.github.wangjiegulu:RapidFloatingActionButton:x.x.x'
 ```
-### Maven:
+### Maven([Check newest version](http://search.maven.org/#search%7Cga%7C1%7CRapidFloatingActionButton)):
 ```
 <dependency>
     <groupId>com.github.wangjiegulu</groupId>
     <artifactId>RapidFloatingActionButton</artifactId>
-    <version>1.0.1</version>
+    <version>x.x.x</version>
 </dependency>
 ```
 
