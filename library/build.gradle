@@ -14,13 +14,13 @@ repositories {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.0.2"
+    buildToolsVersion "22.0.1"
 
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 21
-        versionCode 3
-        versionName "1.0.2"
+        targetSdkVersion 22
+        versionCode 4
+        versionName "1.0.3"
     }
     buildTypes {
         release {
@@ -28,14 +28,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile 'com.android.support:appcompat-v7:22.2.0'
     compile 'com.nineoldandroids:library:2.4.0'
 
-    compile 'com.github.wangjiegulu:AndroidBucket:1.0.2'
+    compile 'com.github.wangjiegulu:AndroidBucket:1.0.4'
 
 //    compile project(':AndroidBucket')
 }
