@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">library</string>
+    <!--<string name="app_name">library</string>-->
 
     <!-- rfaLayout中的覆盖层默认透明度 -->
     <string name="rfab_rfal__float_convert_color_alpha">0.7</string>
