@@ -10,7 +10,7 @@ import android.view.animation.DecelerateInterpolator;
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
-import com.wangjie.androidbucket.utils.ABIOUtil;
+import com.wangjie.rapidfloatingactionbutton.util.RFABIOUtil;
 
 /**
  * Author: wangjie
@@ -227,7 +227,7 @@ public class AnimationView extends View {
     };
 
     public void recycle() {
-        ABIOUtil.recycleBitmap(viewBitmap);
+        RFABIOUtil.recycleBitmap(viewBitmap);
     }
 
 

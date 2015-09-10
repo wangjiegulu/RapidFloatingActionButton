@@ -1,9 +1,8 @@
 package com.wangjie.rapidfloatingactionbutton.example.cardtest;
 
 import android.os.Bundle;
-import com.wangjie.androidinject.annotation.annotations.base.AILayout;
-import com.wangjie.androidinject.annotation.annotations.base.AIView;
-import com.wangjie.androidinject.annotation.present.AIActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
@@ -17,20 +16,20 @@ import java.util.List;
  * Email: tiantian.china.2@gmail.com
  * Date: 5/6/15.
  */
-@AILayout(R.layout.card_list_sample)
-public class CardListSampleActivity extends AIActionBarActivity implements RapidFloatingActionContentCardListView.OnRapidFloatingActionContentCardListViewListener {
+public class CardListSampleActivity extends AppCompatActivity implements RapidFloatingActionContentCardListView.OnRapidFloatingActionContentCardListViewListener {
 
-    @AIView(R.id.card_list_sample_rfal)
     private RapidFloatingActionLayout rfaLayout;
-    @AIView(R.id.card_list_sample_rfab)
     private RapidFloatingActionButton rfaButton;
     private RapidFloatingActionHelper rfabHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.card_list_sample);
+        rfaLayout = (RapidFloatingActionLayout) findViewById(R.id.card_list_sample_rfal);
+        rfaButton = (RapidFloatingActionButton) findViewById(R.id.card_list_sample_rfab);
 
-        RapidFloatingActionContentCardListView rfaContent = new RapidFloatingActionContentCardListView(context);
+        RapidFloatingActionContentCardListView rfaContent = new RapidFloatingActionContentCardListView(this);
         rfaContent.setOnRapidFloatingActionContentCardListViewListener(this);
 
         List<CardItem> cardItems = new ArrayList<>();
@@ -45,7 +44,7 @@ public class CardListSampleActivity extends AIActionBarActivity implements Rapid
         rfaLayout.setDisableContentDefaultAnimation(true);
 
         rfabHelper = new RapidFloatingActionHelper(
-                context,
+                this,
                 rfaLayout,
                 rfaButton,
                 rfaContent
@@ -57,7 +56,7 @@ public class CardListSampleActivity extends AIActionBarActivity implements Rapid
 
     @Override
     public void onRFACCardListItemClick(int position) {
-        showToastMessage("clicked " + position);
+        Toast.makeText(this, "clicked " + position, Toast.LENGTH_SHORT).show();
         rfabHelper.toggleContent();
     }
 }

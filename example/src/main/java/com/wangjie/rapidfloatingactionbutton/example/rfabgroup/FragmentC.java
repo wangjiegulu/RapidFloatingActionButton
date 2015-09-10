@@ -1,17 +1,21 @@
 package com.wangjie.rapidfloatingactionbutton.example.rfabgroup;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import com.wangjie.androidbucket.utils.ABTextUtil;
-import com.wangjie.androidbucket.utils.imageprocess.ABShape;
-import com.wangjie.androidinject.annotation.annotations.base.AILayout;
-import com.wangjie.androidinject.annotation.annotations.base.AIView;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
 import com.wangjie.rapidfloatingactionbutton.example.R;
+import com.wangjie.rapidfloatingactionbutton.util.RFABShape;
+import com.wangjie.rapidfloatingactionbutton.util.RFABTextUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,13 +25,19 @@ import java.util.List;
  * Email: tiantian.china.2@gmail.com
  * Date: 5/4/15.
  */
-@AILayout(R.layout.rfab_group_sample_fragment_c)
 public class FragmentC extends BaseFragment implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
-    @AIView(R.id.rfab_group_sample_fragment_c_rfal)
     private RapidFloatingActionLayout rfaLayout;
     private RapidFloatingActionButton rfaButton;
     private RapidFloatingActionHelper rfabHelper;
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.rfab_group_sample_fragment_c, null);
+        rfaLayout = (RapidFloatingActionLayout) view.findViewById(R.id.rfab_group_sample_fragment_c_rfal);
+        return view;
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -38,13 +48,13 @@ public class FragmentC extends BaseFragment implements RapidFloatingActionConten
 
     @Override
     public void onRFACItemLabelClick(int position, RFACLabelItem item) {
-        showToastMessage("clicked label: " + position);
+        Toast.makeText(getActivity(), "clicked label: " + position, Toast.LENGTH_SHORT).show();
         rfabHelper.toggleContent();
     }
 
     @Override
     public void onRFACItemIconClick(int position, RFACLabelItem item) {
-        showToastMessage("clicked icon: " + position);
+        Toast.makeText(getActivity(), "clicked icon: " + position, Toast.LENGTH_SHORT).show();
         rfabHelper.toggleContent();
     }
 
@@ -74,6 +84,7 @@ public class FragmentC extends BaseFragment implements RapidFloatingActionConten
         rfaBtn.build();
         */
 
+        Context context = getActivity();
 
         RapidFloatingActionContentLabelList rfaContent = new RapidFloatingActionContentLabelList(context);
         rfaContent.setOnRapidFloatingActionContentLabelListListener(this);
@@ -92,7 +103,7 @@ public class FragmentC extends BaseFragment implements RapidFloatingActionConten
                         .setIconPressedColor(0xff3e2723)
                         .setLabelColor(Color.WHITE)
                         .setLabelSizeSp(14)
-                        .setLabelBackgroundDrawable(ABShape.generateCornerShapeDrawable(0xaa000000, ABTextUtil.dip2px(context, 4)))
+                        .setLabelBackgroundDrawable(RFABShape.generateCornerShapeDrawable(0xaa000000, RFABTextUtil.dip2px(context, 4)))
                         .setWrapper(1)
         );
         items.add(new RFACLabelItem<Integer>()
@@ -113,9 +124,9 @@ public class FragmentC extends BaseFragment implements RapidFloatingActionConten
         );
         rfaContent
                 .setItems(items)
-                .setIconShadowRadius(ABTextUtil.dip2px(context, 5))
+                .setIconShadowRadius(RFABTextUtil.dip2px(context, 5))
                 .setIconShadowColor(0xff888888)
-                .setIconShadowDy(ABTextUtil.dip2px(context, 5))
+                .setIconShadowDy(RFABTextUtil.dip2px(context, 5))
         ;
 
         rfabHelper = new RapidFloatingActionHelper(

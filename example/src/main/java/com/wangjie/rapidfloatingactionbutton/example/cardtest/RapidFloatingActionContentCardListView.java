@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.wangjie.androidbucket.utils.ABTextUtil;
-import com.wangjie.androidbucket.utils.ABViewUtil;
-import com.wangjie.androidbucket.utils.imageprocess.ABShape;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.viewbase.RapidFloatingActionContentViewBase;
 import com.wangjie.rapidfloatingactionbutton.example.R;
+import com.wangjie.rapidfloatingactionbutton.util.RFABShape;
+import com.wangjie.rapidfloatingactionbutton.util.RFABTextUtil;
+import com.wangjie.rapidfloatingactionbutton.util.RFABViewUtil;
 import com.wangjie.shadowviewhelper.ShadowProperty;
 import com.wangjie.shadowviewhelper.ShadowViewHelper;
 
@@ -69,7 +69,7 @@ public class RapidFloatingActionContentCardListView extends RapidFloatingActionC
         contentView.setOrientation(LinearLayout.VERTICAL);
         ShadowViewHelper.bindShadowHelper(
                 new ShadowProperty()
-                        .setShadowRadius(ABTextUtil.dip2px(getContext(), 4))
+                        .setShadowRadius(RFABTextUtil.dip2px(getContext(), 4))
                         .setShadowColor(0x66000000)
                 ,
                 contentView
@@ -80,7 +80,7 @@ public class RapidFloatingActionContentCardListView extends RapidFloatingActionC
             View item = LayoutInflater.from(getContext()).inflate(R.layout.content_card_list_item, null);
             View rootView = item.findViewById(R.id.content_card_list_item_root_view);
             rootView.setTag(com.wangjie.rapidfloatingactionbutton.R.id.rfab__id_content_label_list_item_position, i);
-            ABViewUtil.setBackgroundDrawable(rootView, ABShape.selectorClickColorCornerSimple(Color.WHITE, 0xffF0F0F0, 0));
+            RFABViewUtil.setBackgroundDrawable(rootView, RFABShape.selectorClickColorCornerSimple(Color.WHITE, 0xffF0F0F0, 0));
             rootView.setOnClickListener(this);
 
             ImageView logoIv = (ImageView) rootView.findViewById(R.id.content_card_list_item_logo_iv);

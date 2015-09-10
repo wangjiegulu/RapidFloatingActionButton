@@ -1,8 +1,8 @@
 package com.wangjie.rapidfloatingactionbutton.widget;
 
 import android.content.Context;
-import com.wangjie.androidbucket.utils.ABTextUtil;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABSize;
+import com.wangjie.rapidfloatingactionbutton.util.RFABTextUtil;
 
 import java.io.Serializable;
 
@@ -58,7 +58,7 @@ public class CircleButtonProperties implements Serializable {
     }
 
     public int getStandardSizePx(Context context) {
-        return ABTextUtil.dip2px(context, standardSize.getDpSize());
+        return RFABTextUtil.dip2px(context, standardSize.getDpSize());
     }
 
     public int getShadowColor() {

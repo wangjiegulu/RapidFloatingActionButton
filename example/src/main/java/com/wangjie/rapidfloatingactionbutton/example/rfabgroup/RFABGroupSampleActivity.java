@@ -7,9 +7,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerTabStrip;
 import android.support.v4.view.ViewPager;
-import com.wangjie.androidinject.annotation.annotations.base.AILayout;
-import com.wangjie.androidinject.annotation.annotations.base.AIView;
-import com.wangjie.androidinject.annotation.present.AIActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import com.wangjie.rapidfloatingactionbutton.example.R;
 import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingButtonGroupListener;
 import com.wangjie.rapidfloatingactionbutton.rfabgroup.RapidFloatingActionButtonGroup;
@@ -22,13 +20,9 @@ import java.util.List;
  * Email: tiantian.china.2@gmail.com
  * Date: 5/4/15.
  */
-@AILayout(R.layout.rfab_group_sample)
-public class RFABGroupSampleActivity extends AIActionBarActivity implements OnRapidFloatingButtonGroupListener {
-    @AIView(R.id.rfab_group_sample_pts)
+public class RFABGroupSampleActivity extends AppCompatActivity implements OnRapidFloatingButtonGroupListener {
     private PagerTabStrip pts;
-    @AIView(R.id.rfab_group_sample_vp)
     private ViewPager pager;
-    @AIView(R.id.rfab_group_sample_rfabg)
     private RapidFloatingActionButtonGroup rfabGroup;
 
     private List<BaseFragment> fragments = new ArrayList<>();
@@ -36,6 +30,10 @@ public class RFABGroupSampleActivity extends AIActionBarActivity implements OnRa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.rfab_group_sample);
+        pts = (PagerTabStrip) findViewById(R.id.rfab_group_sample_pts);
+        pager = (ViewPager) findViewById(R.id.rfab_group_sample_vp);
+        rfabGroup = (RapidFloatingActionButtonGroup) findViewById(R.id.rfab_group_sample_rfabg);
 
         rfabGroup.setOnRapidFloatingButtonGroupListener(this);
 

@@ -2,13 +2,13 @@ package com.wangjie.rapidfloatingactionbutton.contentimpl.viewbase;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent;
-import com.wangjie.rapidfloatingactionbutton.util.ViewUtil;
 import com.wangjie.rapidfloatingactionbutton.widget.AnimationView;
 
 /**
@@ -52,7 +52,7 @@ public abstract class RapidFloatingActionContentViewBase extends RapidFloatingAc
         view.addView(realContentView);
 
         mAnimationView = new AnimationView(getContext());
-        ViewUtil.typeSoftWare(mAnimationView);
+        ViewCompat.setLayerType(mAnimationView, ViewCompat.LAYER_TYPE_SOFTWARE, null);
         mAnimationView.setLayoutParams(realContentView.getLayoutParams());
         mAnimationView.setDrawView(realContentView);
         mAnimationView.setOnViewAnimationDrawableListener(this);

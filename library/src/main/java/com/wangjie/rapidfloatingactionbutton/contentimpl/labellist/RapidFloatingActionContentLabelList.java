@@ -14,14 +14,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.wangjie.androidbucket.utils.ABTextUtil;
-import com.wangjie.androidbucket.utils.ABViewUtil;
-import com.wangjie.androidbucket.utils.imageprocess.ABImageProcess;
-import com.wangjie.androidbucket.utils.imageprocess.ABShape;
 import com.wangjie.rapidfloatingactionbutton.R;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABConstants;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABSize;
+import com.wangjie.rapidfloatingactionbutton.util.RFABImageUtil;
+import com.wangjie.rapidfloatingactionbutton.util.RFABShape;
+import com.wangjie.rapidfloatingactionbutton.util.RFABTextUtil;
+import com.wangjie.rapidfloatingactionbutton.util.RFABViewUtil;
 import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonDrawable;
 import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonProperties;
 
@@ -72,7 +72,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
 
     @Override
     protected void initInConstructor() {
-        rfacItemDrawableSizePx = ABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAC_ITEM_DRAWABLE_SIZE_DP);
+        rfacItemDrawableSizePx = RFABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAC_ITEM_DRAWABLE_SIZE_DP);
 
         contentView = new LinearLayout(getContext());
         contentView.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -90,14 +90,14 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
     }
 
     public RapidFloatingActionContentLabelList setItems(List<RFACLabelItem> items) {
-        if (!ABTextUtil.isEmpty(items)) {
+        if (!RFABTextUtil.isEmpty(items)) {
             this.items = items;
         }
         return this;
     }
 
     private void refreshItems() {
-        if (ABTextUtil.isEmpty(items)) {
+        if (RFABTextUtil.isEmpty(items)) {
             throw new RuntimeException(this.getClass().getSimpleName() + "[items] can not be empty!");
         }
         contentView.removeAllViews();
@@ -105,10 +105,10 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
             RFACLabelItem item = items.get(i);
             // 初始化控件，并设置监听事件
             View itemView = LayoutInflater.from(getContext()).inflate(R.layout.rfab__content_label_list_item, null);
-            View rootView = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_root_view);
+            View rootView = RFABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_root_view);
 
-            TextView labelTv = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_label_tv);
-            ImageView iconIv = ABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_icon_iv);
+            TextView labelTv = RFABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_label_tv);
+            ImageView iconIv = RFABViewUtil.obtainView(itemView, R.id.rfab__content_label_list_icon_iv);
             rootView.setOnClickListener(this);
             labelTv.setOnClickListener(this);
             iconIv.setOnClickListener(this);
@@ -126,7 +126,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
 
             // 为了视觉效果，每个item行间距至少是8dp
             int shadowOffsetHalf = circleButtonProperties.getShadowOffsetHalf();
-            int minPadding = ABTextUtil.dip2px(getContext(), 8);
+            int minPadding = RFABTextUtil.dip2px(getContext(), 8);
             if (shadowOffsetHalf < minPadding) {
                 int deltaPadding = minPadding - shadowOffsetHalf;
                 rootView.setPadding(0, deltaPadding, 0, deltaPadding);
@@ -156,14 +156,14 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
                 iconIv.setLayerType(LAYER_TYPE_SOFTWARE, rfacNormalDrawable.getPaint());
             }
 
-            ABViewUtil.setBackgroundDrawable(iconIv, ABShape.selectorClickSimple(rfacNormalDrawable, rfacPressedDrawable));
+            RFABViewUtil.setBackgroundDrawable(iconIv, RFABShape.selectorClickSimple(rfacNormalDrawable, rfacPressedDrawable));
             // 设置中间图标的大小
-            int padding = ABTextUtil.dip2px(getContext(), 8) + shadowOffsetHalf;
+            int padding = RFABTextUtil.dip2px(getContext(), 8) + shadowOffsetHalf;
             iconIv.setPadding(padding, padding, padding, padding);
 
             // 渲染UI
             String label = item.getLabel();
-            if (ABTextUtil.isEmpty(label)) {
+            if (RFABTextUtil.isEmpty(label)) {
                 labelTv.setVisibility(GONE);
             } else {
                 if (item.isLabelTextBold()) {
@@ -173,7 +173,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
                 labelTv.setText(label);
                 Drawable bgDrawable = item.getLabelBackgroundDrawable();
                 if (null != bgDrawable) {
-                    ABViewUtil.setBackgroundDrawable(labelTv, bgDrawable);
+                    RFABViewUtil.setBackgroundDrawable(labelTv, bgDrawable);
                 }
                 Integer labelColor = item.getLabelColor();
                 if (null != labelColor) {
@@ -194,7 +194,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
                 iconIv.setImageDrawable(drawable);
             } else if ((resId = item.getResId()) > 0) {
                 iconIv.setVisibility(VISIBLE);
-                iconIv.setImageDrawable(ABImageProcess.getResourceDrawableBounded(getContext(), resId, rfacItemDrawableSizePx));
+                iconIv.setImageDrawable(RFABImageUtil.getResourceDrawableBounded(getContext(), resId, rfacItemDrawableSizePx));
             } else {
                 iconIv.setVisibility(GONE);
             }
@@ -257,7 +257,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
         int count = contentView.getChildCount();
         for (int i = 0; i < count; i++) {
             View rootView = contentView.getChildAt(i);
-            ImageView iconIv = ABViewUtil.obtainView(rootView, R.id.rfab__content_label_list_icon_iv);
+            ImageView iconIv = RFABViewUtil.obtainView(rootView, R.id.rfab__content_label_list_icon_iv);
             if (null == iconIv) {
                 return;
             }
@@ -276,7 +276,7 @@ public class RapidFloatingActionContentLabelList extends RapidFloatingActionCont
         int count = contentView.getChildCount();
         for (int i = 0; i < count; i++) {
             View rootView = contentView.getChildAt(i);
-            ImageView iconIv = ABViewUtil.obtainView(rootView, R.id.rfab__content_label_list_icon_iv);
+            ImageView iconIv = RFABViewUtil.obtainView(rootView, R.id.rfab__content_label_list_icon_iv);
             if (null == iconIv) {
                 return;
             }

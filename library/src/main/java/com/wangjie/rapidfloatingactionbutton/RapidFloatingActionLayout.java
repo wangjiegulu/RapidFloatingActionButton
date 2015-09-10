@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -15,7 +16,6 @@ import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.wangjie.androidbucket.log.Logger;
 import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListener;
 
 /**
@@ -108,7 +108,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         if (null != this.contentView) {
             this.removeView(this.contentView);
 //            throw new RuntimeException("contentView: [" + this.contentView + "] is already initialed");
-            Logger.w(TAG, "contentView: [" + this.contentView + "] is already initialed");
+            Log.w(TAG, "contentView: [" + this.contentView + "] is already initialed");
         }
         this.contentView = contentView;
         // 添加背景覆盖层

@@ -15,14 +15,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
-import com.wangjie.androidbucket.utils.ABTextUtil;
-import com.wangjie.androidbucket.utils.ABViewUtil;
-import com.wangjie.androidbucket.utils.imageprocess.ABImageProcess;
-import com.wangjie.androidbucket.utils.imageprocess.ABShape;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABConstants;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABSize;
 import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListener;
 import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingButtonSeparateListener;
+import com.wangjie.rapidfloatingactionbutton.util.RFABImageUtil;
+import com.wangjie.rapidfloatingactionbutton.util.RFABShape;
+import com.wangjie.rapidfloatingactionbutton.util.RFABTextUtil;
+import com.wangjie.rapidfloatingactionbutton.util.RFABViewUtil;
 import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonDrawable;
 import com.wangjie.rapidfloatingactionbutton.widget.CircleButtonProperties;
 
@@ -160,7 +160,7 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
     private void initAfterConstructor() {
         this.setOnClickListener(this);
         // 中间图片大小24dp
-        buttonDrawableSize = ABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAB_DRAWABLE_SIZE_DP);
+        buttonDrawableSize = RFABTextUtil.dip2px(getContext(), RFABConstants.SIZE.RFAB_DRAWABLE_SIZE_DP);
 
         refreshRFABDisplay();
     }
@@ -170,14 +170,14 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
      */
     private void refreshRFABDisplay() {
         if (null == buttonDrawable) {
-            buttonDrawable = ABImageProcess.getResourceDrawableBounded(getContext(), DEFAULT_BUTTON_DRAWABLE_RES_ID, buttonDrawableSize);
+            buttonDrawable = RFABImageUtil.getResourceDrawableBounded(getContext(), DEFAULT_BUTTON_DRAWABLE_RES_ID, buttonDrawableSize);
         }
 
         // 设置rfab的背景图片
         CircleButtonDrawable normalDrawable = new CircleButtonDrawable(getContext(), rfabProperties, normalColor);
-        ABViewUtil.setBackgroundDrawable(
+        RFABViewUtil.setBackgroundDrawable(
                 this,
-                ABShape.selectorClickSimple(
+                RFABShape.selectorClickSimple(
                         normalDrawable,
                         new CircleButtonDrawable(getContext(), rfabProperties, pressedColor)
                 )
