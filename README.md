@@ -79,13 +79,13 @@ Add`<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>` at outerm
 ## MainActivity：
 ```
 @AILayout(R.layout.activity_main)
-public class MainActivity extends AIActionBarActivity implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentListener {
+public class MainActivity extends AIActionBarActivity implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
     @AIView(R.id.activity_main_rfal)
     private RapidFloatingActionLayout rfaLayout;
     @AIView(R.id.activity_main_rfab)
     private RapidFloatingActionButton rfaBtn;
-    private RapidFloatingActionButtonHelper rfabHelper;
+    private RapidFloatingActionHelper rfabHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

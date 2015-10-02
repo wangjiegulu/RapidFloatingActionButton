@@ -7,6 +7,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Display;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -34,6 +35,17 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
     private static final String TAG = RapidFloatingActionLayout.class.getSimpleName();
 
     Context c;
+
+    String bigButtonLabel = "Label";
+    TextView bigButtonLabelTextView;
+
+    public String getBigButtonLabel() {
+        return bigButtonLabel;
+    }
+
+    public void setBigButtonLabel(String bigButtonLabel) {
+        this.bigButtonLabel = bigButtonLabel;
+    }
 
     public RapidFloatingActionLayout(Context context) {
         super(context);
@@ -149,12 +161,14 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
 
         this.addView(this.contentView);
         ViewTreeObserver obs = this.contentView.getViewTreeObserver();
-        final TextView tv = new TextView(RapidFloatingActionLayout.this.getContext());
-        tv.setText("Saucisse");
+        bigButtonLabelTextView = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.rfab__label_text_view, null);
+
+        bigButtonLabelTextView.setText(bigButtonLabel);
         // When the button is measured
         obs.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
+                // IT IS A DIRTY HACK BECAUSE LIB DESIGN DO NOT ALLOW TO DO THAT
                 // If view is not set yet
                 if (RapidFloatingActionLayout.this.findViewWithTag(TAG) == null) {
                     RelativeLayout.LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
@@ -167,16 +181,18 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
                     int width = display.getWidth();  // deprecated
                     int height = display.getHeight();  // deprecated
                     // Before the button
-                    int marginRight = (int) ((width - ViewHelper.getX(RapidFloatingActionLayout.this.onRapidFloatingActionListener.obtainRFAButton()))*1.5);
+                    // 10% margin should be ok to be aligned with the others.
+                    int marginRight = (int) ((width - ViewHelper.getX(RapidFloatingActionLayout.this.onRapidFloatingActionListener.obtainRFAButton())) * 1.1);
                     Log.d(TAG, "marginRight:" + marginRight);
                     params.rightMargin = marginRight;
                     // Middle vertical
                     int marginBottom = (height - (int) ViewHelper.getY(RapidFloatingActionLayout.this.onRapidFloatingActionListener.obtainRFAButton())) / 4;
                     Log.d(TAG, "marginBottom:" + marginBottom);
                     params.bottomMargin = marginBottom;
-                    tv.setLayoutParams(params);
-                    tv.setTag(TAG);
-                    RapidFloatingActionLayout.this.addView(tv);
+                    bigButtonLabelTextView.setLayoutParams(params);
+                    bigButtonLabelTextView.setTag(TAG);
+                    bigButtonLabelTextView.setVisibility(INVISIBLE);
+                    RapidFloatingActionLayout.this.addView(bigButtonLabelTextView);
                 }
             }
         });
@@ -212,9 +228,20 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
     public void toggleContent() {
         if (isExpanded) {
             collapseContent();
+            hideLabel();
         } else {
             expandContent();
+            showLabel();
         }
+    }
+
+    private void showLabel() {
+        bigButtonLabelTextView.setVisibility(VISIBLE);
+
+    }
+
+    private void hideLabel() {
+        bigButtonLabelTextView.setVisibility(GONE);
     }
 
     private AnimatorSet animatorSet;
