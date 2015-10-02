@@ -5,16 +5,23 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.view.ViewHelper;
 import com.wangjie.androidbucket.log.Logger;
 import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListener;
 
@@ -26,19 +33,24 @@ import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListe
 public class RapidFloatingActionLayout extends RelativeLayout implements OnClickListener {
     private static final String TAG = RapidFloatingActionLayout.class.getSimpleName();
 
+    Context c;
+
     public RapidFloatingActionLayout(Context context) {
         super(context);
+        c = context;
         initAfterConstructor();
     }
 
     public RapidFloatingActionLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
+        c = context;
         parserAttrs(context, attrs, 0, 0);
         initAfterConstructor();
     }
 
     public RapidFloatingActionLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        c = context;
         parserAttrs(context, attrs, defStyleAttr, 0);
         initAfterConstructor();
     }
@@ -46,6 +58,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public RapidFloatingActionLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+        c = context;
         parserAttrs(context, attrs, defStyleAttr, defStyleRes);
         initAfterConstructor();
     }
@@ -89,6 +102,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
     public void setIsContentAboveLayout(boolean isContentAboveLayout) {
         this.isContentAboveLayout = isContentAboveLayout;
     }
+
     public boolean isContentAboveLayout() {
         return isContentAboveLayout;
     }
@@ -97,6 +111,7 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
      * 是否禁止contentView展开和收缩的默认动画（如果禁用，可以自己实现自定义动画）
      */
     private boolean disableContentDefaultAnimation = false;
+
     public void setDisableContentDefaultAnimation(boolean disableContentDefaultAnimation) {
         this.disableContentDefaultAnimation = disableContentDefaultAnimation;
     }
@@ -131,7 +146,42 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
 
         this.contentView.setLayoutParams(lp);
         this.contentView.setVisibility(GONE);
+
         this.addView(this.contentView);
+        ViewTreeObserver obs = this.contentView.getViewTreeObserver();
+        final TextView tv = new TextView(RapidFloatingActionLayout.this.getContext());
+        tv.setText("Saucisse");
+        // When the button is measured
+        obs.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                // If view is not set yet
+                if (RapidFloatingActionLayout.this.findViewWithTag(TAG) == null) {
+                    RelativeLayout.LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+                    params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+                    params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+                    WindowManager wm = (WindowManager) RapidFloatingActionLayout.this.getContext().getSystemService(Context.WINDOW_SERVICE);
+                    Display display = wm.getDefaultDisplay();
+                    // Use of deprecated method to support API 9
+                    // TODO: Separate in two and use #getSize() for the newer APIs
+                    int width = display.getWidth();  // deprecated
+                    int height = display.getHeight();  // deprecated
+                    // Before the button
+                    int marginRight = (int) ((width - ViewHelper.getX(RapidFloatingActionLayout.this.onRapidFloatingActionListener.obtainRFAButton()))*1.5);
+                    Log.d(TAG, "marginRight:" + marginRight);
+                    params.rightMargin = marginRight;
+                    // Middle vertical
+                    int marginBottom = (height - (int) ViewHelper.getY(RapidFloatingActionLayout.this.onRapidFloatingActionListener.obtainRFAButton())) / 4;
+                    Log.d(TAG, "marginBottom:" + marginBottom);
+                    params.bottomMargin = marginBottom;
+                    tv.setLayoutParams(params);
+                    tv.setTag(TAG);
+                    RapidFloatingActionLayout.this.addView(tv);
+                }
+            }
+        });
+
+
         return this;
     }
 
@@ -181,9 +231,9 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         fillFrameAnimator.setPropertyName("alpha");
 
         animatorSet = new AnimatorSet();
-        if(disableContentDefaultAnimation){
+        if (disableContentDefaultAnimation) {
             animatorSet.playTogether(fillFrameAnimator);
-        }else{
+        } else {
             contentAnimator.setTarget(this.contentView);
             contentAnimator.setFloatValues(0.0f, 1.0f);
             contentAnimator.setPropertyName("alpha");
@@ -209,7 +259,6 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         });
 
         animatorSet.start();
-
     }
 
     public void collapseContent() {
@@ -224,9 +273,9 @@ public class RapidFloatingActionLayout extends RelativeLayout implements OnClick
         fillFrameAnimator.setPropertyName("alpha");
 
         animatorSet = new AnimatorSet();
-        if(disableContentDefaultAnimation){
+        if (disableContentDefaultAnimation) {
             animatorSet.playTogether(fillFrameAnimator);
-        }else{
+        } else {
             contentAnimator.setTarget(this.contentView);
             contentAnimator.setFloatValues(1.0f, 0.0f);
             contentAnimator.setPropertyName("alpha");

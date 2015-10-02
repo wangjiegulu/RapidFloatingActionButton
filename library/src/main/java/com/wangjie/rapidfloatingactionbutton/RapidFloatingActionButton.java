@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.nineoldandroids.animation.AnimatorSet;
 import com.nineoldandroids.animation.ObjectAnimator;
 import com.wangjie.androidbucket.utils.ABTextUtil;
@@ -274,23 +276,23 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
     public void onExpandAnimator(AnimatorSet animatorSet) {
         ensureDrawableAnimator();
         ensureDrawableInterpolator();
-        mDrawableAnimator.cancel();
-        mDrawableAnimator.setTarget(centerDrawableIv);
-        mDrawableAnimator.setFloatValues(0, -45f);
-        mDrawableAnimator.setPropertyName("rotation");
-        mDrawableAnimator.setInterpolator(mOvershootInterpolator);
-        animatorSet.playTogether(mDrawableAnimator);
+//        mDrawableAnimator.cancel();
+//        mDrawableAnimator.setTarget(centerDrawableIv);
+//        mDrawableAnimator.setFloatValues(0, -45f);
+//        mDrawableAnimator.setPropertyName("rotation");
+//        mDrawableAnimator.setInterpolator(mOvershootInterpolator);
+//        animatorSet.playTogether(mDrawableAnimator);
     }
 
     public void onCollapseAnimator(AnimatorSet animatorSet) {
         ensureDrawableAnimator();
         ensureDrawableInterpolator();
-        mDrawableAnimator.cancel();
-        mDrawableAnimator.setTarget(centerDrawableIv);
-        mDrawableAnimator.setFloatValues(-45f, 0);
-        mDrawableAnimator.setPropertyName("rotation");
-        mDrawableAnimator.setInterpolator(mOvershootInterpolator);
-        animatorSet.playTogether(mDrawableAnimator);
+//        mDrawableAnimator.cancel();
+//        mDrawableAnimator.setTarget(centerDrawableIv);
+//        mDrawableAnimator.setFloatValues(-45f, 0);
+//        mDrawableAnimator.setPropertyName("rotation");
+//        mDrawableAnimator.setInterpolator(mOvershootInterpolator);
+//        animatorSet.playTogether(mDrawableAnimator);
     }
 
     /**
@@ -310,5 +312,4 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
             mOvershootInterpolator = new OvershootInterpolator();
         }
     }
-
 }
