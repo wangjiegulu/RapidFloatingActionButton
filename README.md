@@ -85,7 +85,7 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
     private RapidFloatingActionLayout rfaLayout;
     @AIView(R.id.activity_main_rfab)
     private RapidFloatingActionButton rfaBtn;
-    private RapidFloatingActionButtonHelper rfabHelper;
+    private RapidFloatingActionHelper rfabHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
