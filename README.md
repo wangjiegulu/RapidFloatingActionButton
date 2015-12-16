@@ -14,11 +14,11 @@ Dependencies：</br>
 [NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：The Property Animation library for pre android 3.0</br>
 
 ### Gradle([Check newest version](http://search.maven.org/#search%7Cga%7C1%7CRapidFloatingActionButton)):
-```
+```groovy
 compile 'com.github.wangjiegulu:RapidFloatingActionButton:x.x.x'
 ```
 ### Maven([Check newest version](http://search.maven.org/#search%7Cga%7C1%7CRapidFloatingActionButton)):
-```
+```xml
 <dependency>
     <groupId>com.github.wangjiegulu</groupId>
     <artifactId>RapidFloatingActionButton</artifactId>
@@ -27,7 +27,7 @@ compile 'com.github.wangjiegulu:RapidFloatingActionButton:x.x.x'
 ```
 
 ## activity_main.xml：
-```
+```xml
 <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
       xmlns:rfal="http://schemas.android.com/apk/res-auto"
       android:id="@+id/activity_main_rfal"
@@ -77,7 +77,7 @@ Add`<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>` at outerm
 
 
 ## MainActivity：
-```
+```java
 @AILayout(R.layout.activity_main)
 public class MainActivity extends AIActionBarActivity implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentListener {
 
@@ -161,7 +161,7 @@ At last，you need combine them by `RapidFloatingActionButtonHelper`.
 
 #About expand style：
 If you don't like `RapidFloatingActionContentLabelList`，you can expand your content style. Extend `com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent`, initialize the content layout and style，and invoke `setRootView(xxx);` method. If you want to add more animations，override those methods：</br>
-```
+```java
 public void onExpandAnimator(AnimatorSet animatorSet);
 public void onCollapseAnimator(AnimatorSet animatorSet);
 ```
