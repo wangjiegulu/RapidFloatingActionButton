@@ -1,4 +1,7 @@
 # RapidFloatingActionButton
+
+> 最后打个广告哈，阿里巴巴，杭州招技术，支持电话视频面试，有兴趣的同学戳这里：https://github.com/wangjiegulu/jobs
+
 Quick solutions for Floating Action Button，RapidFloatingActionButton（RFAB）</br>
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_label_list.gif' height='500px'/>
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfabg.gif' height='500px'/>
