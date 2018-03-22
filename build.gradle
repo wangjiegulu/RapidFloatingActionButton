@@ -23,6 +23,9 @@ allprojects {
     repositories {
         google()
         jcenter()
+//        maven {
+//            url uri("${System.getProperty('user.home')}/.m2/repository")
+//        }
     }
 
     ext {
