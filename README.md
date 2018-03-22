@@ -7,21 +7,22 @@ Quick solutions for Floating Action Button，RapidFloatingActionButton（RFAB）
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_03.png' height='500px'/>
 
 # How to use：
-Dependencies：</br>
-[AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：The base library</br>
-[AndroidInject](https://github.com/wangjiegulu/androidInject)：The Inject library</br>
-[ShadowViewHelper](https://github.com/wangjiegulu/ShadowViewHelper)：Shadow layout, shadow view for android</br>
-[NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：The Property Animation library for pre android 3.0</br>
 
-### Gradle([Check newest version](http://search.maven.org/#search%7Cga%7C1%7CRapidFloatingActionButton)):
+<strike>Dependencies：</strike></br>
+<strike>[AndroidBucket](https://github.com/wangjiegulu/AndroidBucket)：The base library</strike></br>
+<strike>[AndroidInject](https://github.com/wangjiegulu/androidInject)：The Inject library</strike></br>
+<strike>[ShadowViewHelper](https://github.com/wangjiegulu/ShadowViewHelper)：Shadow layout, shadow view for android</strike></br>
+<strike>[NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：The Property Animation library for pre android 3.0</strike></br>
+
+### Gradle([Check newest version](http://search.maven.org/#search%7Cga%7C1%7Crfab)):
 ```
-compile 'com.github.wangjiegulu:RapidFloatingActionButton:x.x.x'
+compile 'com.github.wangjiegulu:rfab:x.x.x'
 ```
-### Maven([Check newest version](http://search.maven.org/#search%7Cga%7C1%7CRapidFloatingActionButton)):
+### Maven([Check newest version](http://search.maven.org/#search%7Cga%7C1%7Crfab)):
 ```
 <dependency>
     <groupId>com.github.wangjiegulu</groupId>
-    <artifactId>RapidFloatingActionButton</artifactId>
+    <artifactId>rfab</artifactId>
     <version>x.x.x</version>
 </dependency>
 ```
@@ -139,7 +140,7 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
                 rfaContent
         ).build();
     }
-    
+
     @Override
     public void onRFACItemLabelClick(int position, RFACLabelItem item) {
         Toast.makeText(getContext(), "clicked label: " + position, Toast.LENGTH_SHORT).show();
@@ -185,3 +186,7 @@ License
     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
     See the License for the specific language governing permissions and
     limitations under the License.
+
+
+
+
