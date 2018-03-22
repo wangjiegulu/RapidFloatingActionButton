@@ -94,7 +94,7 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RapidFloatingActionContentLabelList rfaContent = new RapidFloatingActionContentLabelList(context);
-        rfaContent.setOnRapidFloatingActionContentListener(this);
+        rfaContent.setOnRapidFloatingActionContentLabelListListener(this);
         List<RFACLabelItem> items = new ArrayList<>();
         items.add(new RFACLabelItem<Integer>()
                         .setLabel("Github: wangjiegulu")
