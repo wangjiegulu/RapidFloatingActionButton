@@ -7,3 +7,4 @@
 gradlew
 gradlew.bat
 maven_*.properties
+*.iml
