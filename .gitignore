@@ -4,7 +4,5 @@
 /.idea/libraries
 .DS_Store
 /build
-gradlew
-gradlew.bat
 maven_*.properties
 *.iml
