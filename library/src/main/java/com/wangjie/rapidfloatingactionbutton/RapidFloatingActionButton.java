@@ -1,5 +1,7 @@
 package com.wangjie.rapidfloatingactionbutton;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -13,8 +15,7 @@ import android.view.View;
 import android.view.animation.OvershootInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
+
 import com.wangjie.rapidfloatingactionbutton.constants.RFABConstants;
 import com.wangjie.rapidfloatingactionbutton.constants.RFABSize;
 import com.wangjie.rapidfloatingactionbutton.listener.OnRapidFloatingActionListener;
@@ -183,9 +184,9 @@ public class RapidFloatingActionButton extends FrameLayout implements View.OnCli
                 )
         );
 
-//        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB) {
             this.setLayerType(LAYER_TYPE_SOFTWARE, normalDrawable.getPaint());
-//        }
+        }
 
         if (null == centerDrawableIv) {
             this.removeAllViews();

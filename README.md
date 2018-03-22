@@ -1,4 +1,7 @@
 # RapidFloatingActionButton
+
+> 最后打个广告哈，阿里巴巴，杭州招技术，支持电话视频面试，有兴趣的同学戳这里：https://github.com/wangjiegulu/jobs
+
 Quick solutions for Floating Action Button，RapidFloatingActionButton（RFAB）</br>
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_label_list.gif' height='500px'/>
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfabg.gif' height='500px'/>
@@ -15,11 +18,13 @@ Quick solutions for Floating Action Button，RapidFloatingActionButton（RFAB）
 <strike>[NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：The Property Animation library for pre android 3.0</strike></br>
 
 ### Gradle([Check newest version](http://search.maven.org/#search%7Cga%7C1%7Crfab)):
-```
+
+```groovy
 compile 'com.github.wangjiegulu:rfab:x.x.x'
 ```
 ### Maven([Check newest version](http://search.maven.org/#search%7Cga%7C1%7Crfab)):
-```
+
+```xml
 <dependency>
     <groupId>com.github.wangjiegulu</groupId>
     <artifactId>rfab</artifactId>
@@ -28,7 +33,8 @@ compile 'com.github.wangjiegulu:rfab:x.x.x'
 ```
 
 ## activity_main.xml：
-```
+
+```xml
 <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout
       xmlns:rfal="http://schemas.android.com/apk/res-auto"
       android:id="@+id/activity_main_rfal"
@@ -60,39 +66,44 @@ compile 'com.github.wangjiegulu:rfab:x.x.x'
 ```
 Add`<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>` at outermost layout of RFAB(`<com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton>`)
 
-###Properties
-####RapidFloatingActionLayout:</br>
-      rfal_frame_color: Frame color when expand RFAB，default is white color
-      rfal_frame_alpha: Frame color alpha(0 ~ 1) when expand RFAB，default is 0.7
-####RapidFloatingActionButton:</br>
-      rfab_size: The size of RFAB，only support two size（Material Design）：
-              normal: diameter 56dp
-              mini: diameter 40dp
-      rfab_drawable: The drawable of RFAB，default drawable is "+"
-      rfab_color_normal: Normal status color of RFAB。default is white
-      rfab_color_pressed: Pressed status color of RFAB。default is "#dddddd"
-      rfab_shadow_radius: Shadow radius of RFAB。default is 0(no shadow)
-      rfab_shadow_color: Shadow color of RFAB。default is transparent. it will be invalid if the rfab_shadow_radius is 0
-      rfab_shadow_dx: The shadow offset of RFAB(x-axis)。default is 0
-      rfab_shadow_dy: The shadow offset of RFAB(y-axis)。default is 0
+### Properties
+
+#### RapidFloatingActionLayout:
+
+- **rfal_frame_color**: Frame color when expand RFAB，default is white color
+- **rfal_frame_alpha**: Frame color alpha(0 ~ 1) when expand RFAB，default is 0.7
+
+#### RapidFloatingActionButton:
+
+- **rfab_size**: The size of RFAB，only support two size（Material Design）：
+ - normal: diameter 56dp
+ - mini: diameter 40dp
+- **rfab_drawable**: The drawable of RFAB，default drawable is "+"
+- **rfab_color_normal**: Normal status color of RFAB。default is white
+- **rfab_color_pressed**: Pressed status color of RFAB。default is "#dddddd"
+- **rfab_shadow_radius**: Shadow radius of RFAB。default is 0(no shadow)
+- **rfab_shadow_color**: Shadow color of RFAB。default is transparent. it will be invalid if the rfab_shadow_radius is 0
+- **rfab_shadow_dx**: The shadow offset of RFAB(x-axis)。default is 0
+- **rfab_shadow_dy**: The shadow offset of RFAB(y-axis)。default is 0
 
 
 ## MainActivity：
-```
+
+```java
 @AILayout(R.layout.activity_main)
-public class MainActivity extends AIActionBarActivity implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentListener {
+public class MainActivity extends AIActionBarActivity implements RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener {
 
     @AIView(R.id.activity_main_rfal)
     private RapidFloatingActionLayout rfaLayout;
     @AIView(R.id.activity_main_rfab)
     private RapidFloatingActionButton rfaBtn;
-    private RapidFloatingActionButtonHelper rfabHelper;
+    private RapidFloatingActionHelper rfabHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         RapidFloatingActionContentLabelList rfaContent = new RapidFloatingActionContentLabelList(context);
-        rfaContent.setOnRapidFloatingActionContentListener(this);
+        rfaContent.setOnRapidFloatingActionContentLabelListListener(this);
         List<RFACLabelItem> items = new ArrayList<>();
         items.add(new RFACLabelItem<Integer>()
                         .setLabel("Github: wangjiegulu")
@@ -155,37 +166,47 @@ public class MainActivity extends AIActionBarActivity implements RapidFloatingAc
 }
 ```
 
-RFAB also needs an implementation of `RapidFloatingActionContent` to fill and assign content of RFAB when it expands.</br>
-Here is a quick solution of `RapidFloatingActionContent`:`RapidFloatingActionContentLabelList`.You can add some items（RFACLabelItem，of course not recommended to add too many items），and config color, drawable, shadow, background image, text size, color of label and animation of each item.</br>
-To preview the demo: [The top picture effects](https://github.com/wangjiegulu/RapidFloatingActionButton/tree/master/screenshot) or [Inbox of Google](https://play.google.com/store/apps/details?id=com.google.android.apps.inbox).</br>
+RFAB also needs an implementation of `RapidFloatingActionContent` to fill and assign content of RFAB when it expands.
+
+Here is a quick solution of `RapidFloatingActionContent`:`RapidFloatingActionContentLabelList`.You can add some items（RFACLabelItem，of course not recommended to add too many items），and config color, drawable, shadow, background image, text size, color of label and animation of each item.
+
+To preview the demo: [The top picture effects](https://github.com/wangjiegulu/RapidFloatingActionButton/tree/master/screenshot) or [Inbox of Google](https://play.google.com/store/apps/details?id=com.google.android.apps.inbox).
+
 At last，you need combine them by `RapidFloatingActionButtonHelper`.
 
-#About expand style：
-If you don't like `RapidFloatingActionContentLabelList`，you can expand your content style. Extend `com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent`, initialize the content layout and style，and invoke `setRootView(xxx);` method. If you want to add more animations，override those methods：</br>
-```
+# About expand style：
+
+If you don't like `RapidFloatingActionContentLabelList`，you can expand your content style. Extend `com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent`, initialize the content layout and style，and invoke `setRootView(xxx);` method. If you want to add more animations，override those methods：
+
+```java
 public void onExpandAnimator(AnimatorSet animatorSet);
 public void onCollapseAnimator(AnimatorSet animatorSet);
 ```
-add your animations to the animatorSet.</br>
-
+add your animations to the animatorSet.
 
 
 License
 =======
 
-    Copyright 2015 Wang Jie
+```
+Copyright 2015 Wang Jie
 
-    Licensed under the Apache License, Version 2.0 (the "License");
-    you may not use this file except in compliance with the License.
-    You may obtain a copy of the License at
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
 
-       http://www.apache.org/licenses/LICENSE-2.0
+  http://www.apache.org/licenses/LICENSE-2.0
 
-    Unless required by applicable law or agreed to in writing, software
-    distributed under the License is distributed on an "AS IS" BASIS,
-    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-    See the License for the specific language governing permissions and
-    limitations under the License.
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+
+
+
 
 
 
