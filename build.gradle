@@ -2,18 +2,36 @@
 
 buildscript {
     repositories {
+        google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.1'
+        classpath 'com.android.tools.build:gradle:3.0.1'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        classpath('com.github.wangjiegulu:rapidmetainf:1.0.0') {
+            exclude group: 'com.android.tools.build', module: 'gradle'
+        }
+        classpath('com.github.wangjiegulu:rapidmavenpush:0.0.4') {
+            exclude group: 'com.android.tools.build', module: 'gradle'
+        }
     }
 }
 
 allprojects {
     repositories {
+        google()
         jcenter()
+    }
+
+    ext {
+        // ************** app configuration ************** //
+        global_compileSdkVersion = 27
+//        global_buildToolsVersion = "25.0.0"
+        global_minSdkVersion = 14
+        global_targetSdkVersion = 27
+        global_supportVersion = '27.1.0'
+
     }
 }

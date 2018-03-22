@@ -1,4 +1,2 @@
-include ':example', ':library', ':AndroidBucket', ':AndroidInject'
+include ':example', ':library'
 
-project(':AndroidBucket').projectDir = new File(settingsDir, "../AndroidBucket")
-project(':AndroidInject').projectDir = new File(settingsDir, "../androidInject")

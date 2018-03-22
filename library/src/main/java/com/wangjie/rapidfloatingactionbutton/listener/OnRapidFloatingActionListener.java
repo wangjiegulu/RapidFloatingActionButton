@@ -1,7 +1,7 @@
 package com.wangjie.rapidfloatingactionbutton.listener;
 
 
-import com.nineoldandroids.animation.AnimatorSet;
+import android.animation.AnimatorSet;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionContent;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
