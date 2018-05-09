@@ -1,6 +1,8 @@
 # RapidFloatingActionButton
 
-> 最后打个广告哈，阿里巴巴，杭州招技术，支持电话视频面试，有兴趣的同学戳这里：https://github.com/wangjiegulu/jobs
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.wangjiegulu/rfab/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.wangjiegulu/rfab) [![](https://img.shields.io/badge/license-Apache%202-orange.svg)](http://www.apache.org/licenses/LICENSE-2.0) ![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)
+
+[![](https://img.shields.io/badge/blog-Wang%20Jie-228377.svg)](https://blog.wangjiegulu.com) [![](https://img.shields.io/badge/twitter-@wangjiegulu-blue.svg)](https://twitter.com/wangjiegulu)
 
 Quick solutions for Floating Action Button，RapidFloatingActionButton（RFAB）</br>
 <img src='https://raw.githubusercontent.com/wangjiegulu/RapidFloatingActionButton/master/screenshot/rfab_label_list.gif' height='500px'/>
@@ -17,12 +19,14 @@ Quick solutions for Floating Action Button，RapidFloatingActionButton（RFAB）
 <strike>[ShadowViewHelper](https://github.com/wangjiegulu/ShadowViewHelper)：Shadow layout, shadow view for android</strike></br>
 <strike>[NineOldAndroids](https://github.com/JakeWharton/NineOldAndroids)：The Property Animation library for pre android 3.0</strike></br>
 
-### Gradle([Check newest version](http://search.maven.org/#search%7Cga%7C1%7Crfab)):
+**Newest version:** [![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.wangjiegulu/rfab/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.wangjiegulu/rfab)
+
+### Gradle:
 
 ```groovy
 compile 'com.github.wangjiegulu:rfab:x.x.x'
 ```
-### Maven([Check newest version](http://search.maven.org/#search%7Cga%7C1%7Crfab)):
+### Maven:
 
 ```xml
 <dependency>
